@@ -1,7 +1,13 @@
+import { Hero } from "@/components/hero";
+import { StatsBar } from "@/components/stats-bar";
+
 export default function Home() {
   return (
-    <div className="min-h-[50vh] flex items-center justify-center">
-      {/* Page content can be added here step-by-step later */}
+    <div className="w-full flex flex-col">
+      {/* Hero Section */}
+      <Hero />
+      {/* Stats and Trust Bar */}
+      <StatsBar />
     </div>
   );
 }

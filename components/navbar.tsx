@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Menu, X, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 import {
   Sheet,
   SheetTrigger,
@@ -23,10 +24,14 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const isHome = pathname === "/";
+  const useWhiteText = isHome && !scrolled;
 
   // Avoid hydration mismatch by waiting for mount
   useEffect(() => {
@@ -49,10 +54,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full border-b",
         scrolled
-          ? "py-3 bg-background/80 backdrop-blur-md border-b border-border/40 shadow-sm"
-          : "py-5 bg-transparent"
+          ? "py-3 bg-background/80 backdrop-blur-md border-border/40 shadow-sm"
+          : "py-5 bg-transparent border-transparent shadow-none backdrop-blur-none"
       )}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,12 +65,25 @@ export function Navbar() {
           
           {/* Logo / Brand */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground overflow-hidden shadow-md shadow-primary/20">
+            <div className={cn(
+              "relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-md transition-colors duration-300",
+              useWhiteText
+                ? "bg-white text-primary shadow-white/10"
+                : "bg-primary text-primary-foreground shadow-primary/20"
+            )}>
               <Sparkles className="w-5 h-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
               <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-              Clean<span className="text-primary font-extrabold">Chase</span>
+            <span className={cn(
+              "text-xl font-bold tracking-tight transition-colors duration-300",
+              useWhiteText
+                ? "text-white"
+                : "bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent"
+            )}>
+              Clean<span className={cn(
+                "transition-colors duration-300 font-extrabold",
+                useWhiteText ? "text-white/90" : "text-primary"
+              )}>Chase</span>
             </span>
           </Link>
 
@@ -75,9 +93,18 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="py-2 text-sm font-semibold text-black/80 hover:text-primary dark:text-white/80 dark:hover:text-primary transition-colors duration-200"
+                className={cn(
+                  "relative py-2 text-sm font-semibold transition-colors duration-200 group",
+                  useWhiteText
+                    ? "text-white/90 hover:text-white dark:text-white/90 dark:hover:text-white"
+                    : "text-black/80 hover:text-primary dark:text-white/80 dark:hover:text-primary"
+                )}
               >
-                {link.name}
+                <span>{link.name}</span>
+                <span className={cn(
+                  "absolute bottom-0 left-0 w-full h-[2px] scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100",
+                  useWhiteText ? "bg-white" : "bg-primary"
+                )} />
               </Link>
             ))}
           </nav>
@@ -89,7 +116,12 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="relative w-9 h-9 rounded-lg hover:bg-secondary border border-transparent hover:border-border/30"
+              className={cn(
+                "relative w-9 h-9 rounded-lg border border-transparent transition-colors",
+                useWhiteText
+                  ? "hover:bg-white/10 hover:border-white/20 text-white"
+                  : "hover:bg-secondary hover:border-border/30 text-foreground"
+              )}
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle Theme"
             >
@@ -106,7 +138,7 @@ export function Navbar() {
                         exit={{ y: -20, rotate: -45, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Moon className="w-[18px] h-[18px] text-primary" />
+                        <Moon className={cn("w-[18px] h-[18px] transition-colors", useWhiteText ? "text-white" : "text-primary")} />
                       </motion.div>
                     ) : (
                       <motion.div
@@ -116,7 +148,7 @@ export function Navbar() {
                         exit={{ y: -20, rotate: 45, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <Sun className="w-[18px] h-[18px] text-primary" />
+                        <Sun className={cn("w-[18px] h-[18px] transition-colors", useWhiteText ? "text-white" : "text-primary")} />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -124,9 +156,8 @@ export function Navbar() {
               </div>
             </Button>
 
-            {/* Quote Button */}
             <Button
-              render={<Link href="/quote" />}
+              render={<Link href="/quote" /> as any}
               variant="default"
               className="relative overflow-hidden group/btn px-5 h-10 shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-95 transition-all duration-200 flex items-center gap-1.5 font-semibold"
             >
@@ -142,28 +173,33 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="w-9 h-9 rounded-lg hover:bg-secondary"
+              className={cn(
+                "w-9 h-9 rounded-lg transition-colors",
+                useWhiteText ? "hover:bg-white/10 text-white" : "hover:bg-secondary text-foreground"
+              )}
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle Theme"
             >
               {!mounted ? (
                 <div className="w-4 h-4 rounded-full bg-muted animate-pulse" />
               ) : theme === "dark" ? (
-                <Moon className="w-[18px] h-[18px] text-primary" />
+                <Moon className={cn("w-[18px] h-[18px] transition-colors", useWhiteText ? "text-white" : "text-primary")} />
               ) : (
-                <Sun className="w-[18px] h-[18px] text-primary" />
+                <Sun className={cn("w-[18px] h-[18px] transition-colors", useWhiteText ? "text-white" : "text-primary")} />
               )}
             </Button>
 
-            {/* Hamburger Button & Drawer */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger render={
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="w-9 h-9 rounded-lg hover:bg-secondary text-foreground"
+                  className={cn(
+                    "w-9 h-9 rounded-lg transition-colors",
+                    useWhiteText ? "hover:bg-white/10 text-white" : "hover:bg-secondary text-foreground"
+                  )}
                   aria-label="Toggle Menu"
-                />
+                /> as any
               }>
                 <div className="relative w-5 h-5 flex items-center justify-center">
                   <Menu className="w-5 h-5" />
@@ -203,7 +239,7 @@ export function Navbar() {
 
                 <div className="mt-auto pt-6 border-t border-border/40">
                   <Button
-                    render={<Link href="/quote" />}
+                    render={<Link href="/quote" /> as any}
                     variant="default"
                     onClick={() => setIsOpen(false)}
                     className="w-full justify-center gap-2 h-11 flex items-center font-semibold"
