@@ -43,10 +43,10 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function Footer() {
   const services = [
-    { name: "Residential Cleaning", href: "/services" },
-    { name: "Commercial & Office", href: "/services" },
-    { name: "Deep Sanitation", href: "/services" },
-    { name: "Move In / Move Out", href: "/services" },
+    { name: "Office Cleaning", href: "/services" },
+    { name: "Business Site Cleaning", href: "/services" },
+    { name: "End of Tenancy Cleaning", href: "/services" },
+    { name: "Carpet & Upholstery Cleaning", href: "/services" },
   ];
 
   const company = [
