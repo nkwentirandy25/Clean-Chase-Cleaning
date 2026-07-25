@@ -30,8 +30,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const isHome = pathname === "/";
-  const useWhiteText = isHome && !scrolled;
+  const useWhiteText = false;
 
   // Avoid hydration mismatch by waiting for mount
   useEffect(() => {
@@ -53,12 +52,7 @@ export function Navbar() {
 
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full border-b",
-        scrolled
-          ? "py-3 bg-background/80 backdrop-blur-md border-border/40 shadow-sm"
-          : "py-5 bg-transparent border-transparent shadow-none backdrop-blur-none"
-      )}
+      className="sticky top-0 left-0 right-0 z-50 transition-all duration-300 w-full border-b py-3 bg-background/80 backdrop-blur-md border-border/40 shadow-sm"
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">

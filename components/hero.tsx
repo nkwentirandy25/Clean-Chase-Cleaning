@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const images = [
@@ -33,30 +31,7 @@ const slideVariants = {
   }),
 };
 
-// Text fade-in-up variants for staggered slide intro
-const textContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
 
-const textItemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-    },
-  },
-};
 
 export function Hero() {
   const [page, setPage] = useState(0);
@@ -117,7 +92,7 @@ export function Hero() {
 
   return (
     <section 
-      className="relative w-full h-[90vh] min-h-[600px] overflow-hidden bg-slate-950 flex items-center justify-center select-none"
+      className="relative w-full h-[450px] overflow-hidden bg-slate-950 flex items-center justify-center select-none"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -163,76 +138,10 @@ export function Hero() {
                 sizes="100vw"
                 className="object-cover object-center pointer-events-none"
               />
-              
-              {/* Premium dark overlays for readability and depth */}
-              <div className="absolute inset-0 bg-black/60" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-black/50" />
+
             </motion.div>
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      {/* Hero Content Section (Central, non-sliding) */}
-      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-16 md:pb-24 items-center">
-        <div className="max-w-3xl w-full flex flex-col items-center text-center">
-          <motion.div
-            variants={textContainerVariants as any}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-center text-center w-full"
-          >
-            {/* Glassmorphic Badge */}
-            <motion.div
-              variants={textItemVariants as any}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 dark:border-primary/45 bg-primary/10 backdrop-blur-md text-primary-foreground dark:text-primary font-semibold text-xs tracking-wider uppercase mb-6 shadow-lg shadow-primary/5"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-              <span>Professional Cleaning Services</span>
-            </motion.div>
-
-            {/* Title heading with gradient highlight */}
-            <motion.h1
-              variants={textItemVariants as any}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] md:leading-[1.05] drop-shadow-sm"
-            >
-              Your Trusted Partner for a{" "}
-              <span className="bg-gradient-to-r from-primary to-primary-foreground bg-clip-text text-transparent">
-                Spotless
-              </span>
-              , Healthier Space
-            </motion.h1>
-
-            {/* Description body */}
-            <motion.p
-              variants={textItemVariants as any}
-              className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow-sm max-w-2xl mt-6 font-medium leading-relaxed mx-auto"
-            >
-              Professional cleaning solutions tailored for homes, offices, and commercial buildings. Experience the standard of absolute cleanliness.
-            </motion.p>
-
-            {/* Call to action buttons */}
-            <motion.div
-              variants={textItemVariants as any}
-              className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto justify-center items-center"
-            >
-              <Button
-                render={<Link href="/quote" /> as any}
-                className="h-12 px-7 rounded-xl text-base font-bold bg-primary text-primary-foreground hover:bg-primary/95 transition-all duration-300 shadow-xl shadow-primary/20 hover:shadow-primary/35 active:scale-98 flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                Get a Quote
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
-              
-              <Button
-                render={<Link href="/services" /> as any}
-                variant="outline"
-                className="h-12 px-7 rounded-xl text-base font-bold bg-white/10 hover:bg-white/20 text-white border-white/20 hover:border-white/30 backdrop-blur-md transition-all duration-300 shadow-lg active:scale-98 flex items-center justify-center cursor-pointer"
-              >
-                Our Services
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
       </div>
 
       {/* Manual Slide Navigation Arrows (Desktop) */}
