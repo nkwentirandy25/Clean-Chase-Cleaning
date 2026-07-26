@@ -8,73 +8,59 @@ interface ReviewItem {
   id: number;
   name: string;
   role: string;
-  initials: string;
-  avatarBg: string;
+  location: string;
   rating: number;
   content: string;
-  date: string;
 }
 
 const reviews: ReviewItem[] = [
   {
     id: 1,
-    name: "Sarah Jenkins",
-    role: "Home Owner",
-    initials: "SJ",
-    avatarBg: "from-pink-500 to-rose-500",
+    name: "Margaret S.",
+    role: "Residential Homeowner",
+    location: "Solihull, West Midlands",
     rating: 5,
-    content: "Clean Chase did an end-of-tenancy clean for my 3-bed house and it was absolutely spotless. The landlord returned my deposit in full without single questions. Highly recommended!",
-    date: "2 days ago"
+    content: "The cleaning team is polite, background checked, and they do an excellent job every week. My kitchen counters and bathroom are spotless. Highly recommended for seniors looking for trustworthy cleaners."
   },
   {
     id: 2,
-    name: "David Miller",
-    role: "Office Manager, TechFlow Ltd",
-    initials: "DM",
-    avatarBg: "from-blue-500 to-indigo-500",
+    name: "Sarah Jenkins",
+    role: "Property Manager",
+    location: "Sutton Coldfield, Birmingham",
     rating: 5,
-    content: "We contracted them for daily office cleaning. Our desks, meeting rooms, and kitchen are immaculate every morning. Outstanding reliability and attention to detail!",
-    date: "5 days ago"
+    content: "Clean Chase did an end-of-tenancy clean for my 3-bed house and it was absolutely spotless. The landlord returned my deposit in full without a single question. Highly recommended!"
   },
   {
     id: 3,
-    name: "Emma Watson",
-    role: "Retail Shop Owner",
-    initials: "EW",
-    avatarBg: "from-emerald-500 to-teal-500",
+    name: "David Miller",
+    role: "Office Manager, TechFlow Ltd",
+    location: "City Centre, Birmingham",
     rating: 5,
-    content: "Outstanding business site cleaning! The entrance glass is crystal clear, and the showroom floors look brand new. My customers have definitely noticed the cleanliness.",
-    date: "1 week ago"
+    content: "We contracted them for daily office cleaning. Our desks, meeting rooms, and kitchen are immaculate every morning. Outstanding reliability and attention to detail!"
   },
   {
     id: 4,
-    name: "James Reynolds",
-    role: "Accommodation Manager",
-    initials: "JR",
-    avatarBg: "from-amber-500 to-orange-500",
+    name: "Emma Watson",
+    role: "Retail Shop Owner",
+    location: "Harborne, Birmingham",
     rating: 5,
-    content: "They handle our student accommodation turnovers. They clean 50+ rooms in a short timeframe and always exceed our cleanliness guidelines.",
-    date: "2 weeks ago"
+    content: "Outstanding business site cleaning! The entrance glass is crystal clear, and the showroom floors look brand new. My customers have definitely noticed the cleanliness."
   },
   {
     id: 5,
-    name: "Sophia Martinez",
-    role: "Restaurant Owner",
-    initials: "SM",
-    avatarBg: "from-violet-500 to-purple-500",
+    name: "James Reynolds",
+    role: "Accommodation Manager",
+    location: "Selly Oak, Birmingham",
     rating: 5,
-    content: "Keeping a restaurant kitchen compliant is tough, but their deep commercial kitchen cleaning is medical-grade. Sparkly clean non-slip floors and sanitised benches.",
-    date: "3 weeks ago"
+    content: "They handle our student accommodation turnovers. They clean 50+ rooms in a short timeframe and always exceed our cleanliness guidelines."
   },
   {
     id: 6,
-    name: "Liam O'Connor",
-    role: "Home Owner",
-    initials: "LO",
-    avatarBg: "from-cyan-500 to-blue-600",
+    name: "Sophia Martinez",
+    role: "Restaurant Owner",
+    location: "Moseley, Birmingham",
     rating: 5,
-    content: "Excellent carpet cleaning service! They removed a stubborn red wine stain from our living room rug. It looks brand new again. Very professional staff.",
-    date: "1 month ago"
+    content: "Keeping a restaurant kitchen compliant is tough, but their deep commercial kitchen cleaning is medical-grade. Sparkly clean non-slip floors and sanitised benches."
   }
 ];
 
@@ -206,55 +192,46 @@ export function GoogleReviews() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               whileHover={{ y: -6 }}
-              className="flex-none w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] snap-start relative p-6 sm:p-8 rounded-3xl border border-border bg-card hover:bg-card/90 transition-all duration-300 flex flex-col shadow-sm group"
+              className="flex-none w-full md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] snap-start relative p-6 sm:p-8 rounded-3xl border border-border/80 bg-slate-50/50 dark:bg-slate-900/30 hover:bg-slate-50/80 dark:hover:bg-slate-900/50 transition-all duration-300 flex flex-col shadow-sm group text-left"
             >
               {/* Glowing hover border */}
               <div className="absolute inset-0 border border-primary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-              {/* Review Card Header */}
-              <div className="flex items-center gap-4 mb-6">
-                {/* Custom Gradient Avatar */}
-                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${review.avatarBg} text-white flex items-center justify-center font-bold text-lg shadow-md`}>
-                  {review.initials}
-                </div>
-                
-                <div className="flex flex-col items-start">
-                  <span className="font-bold text-foreground leading-snug group-hover:text-primary transition-colors duration-200">
-                    {review.name}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {review.role}
-                  </span>
+              {/* Review Card Header: Star Rating & Verified Badge */}
+              <div className="flex items-center justify-between mb-6">
+                {/* Star Rating */}
+                <div className="flex text-amber-400 gap-0.5">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-current" />
+                  ))}
                 </div>
 
-                {/* Google verified checkmark badge */}
-                <div className="ml-auto flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900 px-2.5 py-1 rounded-full text-muted-foreground">
-                  <GoogleIcon className="w-3.5 h-3.5" />
-                  <span className="text-[9px] font-extrabold uppercase tracking-wider text-muted-foreground/80">
-                    Verified
-                  </span>
+                {/* Verified badge */}
+                <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-emerald-200/50 bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400 font-extrabold text-[10px] sm:text-xs tracking-wider uppercase">
+                  <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                  <span>Verified</span>
                 </div>
-              </div>
-
-              {/* Star Rating */}
-              <div className="flex text-amber-400 gap-0.5 mb-4">
-                {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
-                ))}
               </div>
 
               {/* Quote Content */}
-              <p className="text-sm text-foreground/80 leading-relaxed italic mb-6 flex-1">
+              <p className="text-base sm:text-lg font-bold text-foreground leading-relaxed tracking-tight mb-2 flex-1">
                 "{review.content}"
               </p>
 
-              {/* Date tag at bottom */}
-              <div className="flex items-center justify-between pt-4 border-t border-border/40 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" />
-                  Google Verified
+              {/* Divider */}
+              <div className="w-full border-t border-border/50 my-2" />
+
+              {/* Author Info */}
+              <div className="flex flex-col items-start gap-0.5">
+                <span className="font-extrabold text-base sm:text-lg text-foreground tracking-tight">
+                  {review.name}
                 </span>
-                <span>{review.date}</span>
+                <span className="text-xs sm:text-sm font-bold text-primary">
+                  {review.role}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {review.location}
+                </span>
               </div>
             </motion.div>
           ))}

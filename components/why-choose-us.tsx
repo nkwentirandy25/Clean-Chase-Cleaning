@@ -2,7 +2,18 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, Leaf, Award, Clock, Star, Sparkles, CheckCircle2 } from "lucide-react";
+import { 
+  ShieldCheck, 
+  Briefcase, 
+  HeartHandshake, 
+  UserCheck, 
+  CheckCircle2, 
+  ClipboardList, 
+  FileText, 
+  GraduationCap, 
+  Star, 
+  Sparkles 
+} from "lucide-react";
 
 interface FeatureItem {
   id: number;
@@ -16,36 +27,64 @@ const features: FeatureItem[] = [
   {
     id: 1,
     icon: <ShieldCheck className="w-6 h-6 text-primary" />,
-    title: "100% Insured & Trusted",
-    description: "Your peace of mind is our priority. Every cleaner on our team undergoes comprehensive background checks and is fully insured for safe, worry-free servicing.",
-    badge: "Maximum Safety"
+    title: "Public Liability Insurance",
+    description: "Fully insured for public liability up to standard limits, giving you absolute protection and peace of mind.",
+    badge: "Insured"
   },
   {
     id: 2,
-    icon: <Leaf className="w-6 h-6 text-emerald-500" />,
-    title: "Eco-Friendly Products",
-    description: "We care for your health and the environment. We utilize premium non-toxic, pet-safe, and biodegradable cleaning products to leave spaces fresh and safe.",
-    badge: "Eco Standard"
+    icon: <Briefcase className="w-6 h-6 text-indigo-500" />,
+    title: "Employers Liability Insurance",
+    description: "Comprehensive coverage protecting our staff and clients against any unforeseen workplace incidents.",
+    badge: "Covered"
   },
   {
     id: 3,
-    icon: <Award className="w-6 h-6 text-amber-500" />,
-    title: "Certified Professionals",
-    description: "Our staff is trained in professional-grade sanitation protocols. We follow strict checklist cleaning guidelines to ensure absolute perfection.",
-    badge: "Premium Quality"
+    icon: <HeartHandshake className="w-6 h-6 text-emerald-500" />,
+    title: "Health & Safety Compliance",
+    description: "Strict adherence to safety guidelines and sanitary standards to ensure clean and healthy surroundings.",
+    badge: "Compliant"
   },
   {
     id: 4,
-    icon: <Clock className="w-6 h-6 text-blue-500" />,
-    title: "Reliable & Flexible",
-    description: "We adapt to your schedules seamlessly. From customized deep cleaning timelines to prompt arrivals, we value and save your time.",
-    badge: "Always Prompt"
+    icon: <UserCheck className="w-6 h-6 text-amber-500" />,
+    title: "Right to Work",
+    description: "All our personnel undergo rigorous document checks to ensure legal work status verification.",
+    badge: "Verified"
+  },
+  {
+    id: 5,
+    icon: <CheckCircle2 className="w-6 h-6 text-blue-500" />,
+    title: "DBS Check",
+    description: "Every member of our team has successfully passed national background checks for maximum security.",
+    badge: "Secured"
+  },
+  {
+    id: 6,
+    icon: <ClipboardList className="w-6 h-6 text-rose-500" />,
+    title: "Risk Assessment Training",
+    description: "Staff trained in hazards identification and risk mitigation protocols before beginning on-site work.",
+    badge: "Trained"
+  },
+  {
+    id: 7,
+    icon: <FileText className="w-6 h-6 text-violet-500" />,
+    title: "COSHH Awareness",
+    description: "Full awareness training regarding control of hazardous substances and safe chemical application.",
+    badge: "COSHH Safety"
+  },
+  {
+    id: 8,
+    icon: <GraduationCap className="w-6 h-6 text-cyan-500" />,
+    title: "Ladders & Step Ladders",
+    description: "Certified safety training for working at heights and safe ladder handling on client premises.",
+    badge: "Safety Certified"
   }
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="pt-8 pb-8 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden">
+    <section className="pt-12 pb-12 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden">
       {/* Radiant Background Glows */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/5 rounded-full blur-[90px] pointer-events-none" />
@@ -82,7 +121,7 @@ export function WhyChooseUs() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground leading-relaxed mb-6"
           >
-            We are not just standard cleaners; we are professionals committed to transforming environments. We combine premium products, certified techniques, and absolute safety to make your space shine.
+            We adhere to the highest industry standards of safety, training, and legal compliance. Our operations are fully insured and our staff is meticulously vetted.
           </motion.p>
 
           {/* Quick Metrics Trust Bar */}
@@ -140,7 +179,7 @@ export function WhyChooseUs() {
                 </span>
               </div>
 
-              <h4 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-200">
+              <h4 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-200 leading-snug">
                 {feature.title}
               </h4>
 

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,6 +43,12 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export function Footer() {
+  const pathname = usePathname();
+  const validRoutes = ["/", "/about", "/contact", "/privacy", "/quote", "/services", "/terms"];
+  const isNotFound = !validRoutes.includes(pathname);
+
+  if (isNotFound) return null;
+
   const services = [
     { name: "Office Cleaning", href: "/services" },
     { name: "Business Site Cleaning", href: "/services" },

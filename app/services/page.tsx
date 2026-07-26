@@ -72,7 +72,7 @@ const services: ServiceItem[] = [
     id: 10,
     name: "After Builders Cleaning",
     description: "Remove heavy dust, plaster splatters, and construction residue from newly built or renovated sites. We scrub floors, wipe fixtures, polish glass panes, clean inside cabinets, and clean vents, making your new building or home addition immediately ready for comfortable occupancy.",
-    image: "/assets/services/after_builders_cleaning.png",
+    image: "/assets/services/after_builders_cleaning_new.png",
   },
   {
     id: 11,
@@ -83,7 +83,7 @@ const services: ServiceItem[] = [
   {
     id: 12,
     name: "Transport & Fleet Cleaning",
-    description: "Keep your logistics assets representing your company professionally on the road. We provide complete exterior high-pressure washing, chassis cleaning, and thorough interior sanitation of buses, delivery vans, cargo trucks, and executive corporate fleets.",
+    description: "Keep your logistics assets representing your company professionally on the road. We provide complete exterior high-pressure washing, chassis cleaning, and thorough interior sanitation of buses, trains, delivery vans, cargo trucks, and executive corporate fleets.",
     image: "/assets/services/transport_fleet_cleaning.png",
   },
   {
@@ -91,6 +91,18 @@ const services: ServiceItem[] = [
     name: "Carpet & Upholstery Cleaning",
     description: "Restore the vibrant color and texture of your carpets and fabric furniture. Using advanced hot-water extraction, steam sanitization, and eco-friendly solutions, we extract deep-seated dirt, dust mites, pet dander, and tough stains from carpets, office chairs, and sofas.",
     image: "/assets/services/carpet_upholstery_cleaning.png",
+  },
+  {
+    id: 14,
+    name: "Agricultural Cleaning",
+    description: "Professional sanitation and pressure wash solutions for agricultural facilities, livestock barns, storage sheds, and farm machinery. We remove heavy organic matter, disinfect feeding zones, and sanitize pathways to prevent disease and maintain strict agricultural hygiene standards.",
+    image: "/assets/services/agricultural_cleaning.png",
+  },
+  {
+    id: 15,
+    name: "Store Cleaning",
+    description: "Keep your retail store, supermarket, or fashion boutique spotless and inviting for customers. We handle glass window polishing, deep cleaning of checkout zones, aisle floor polishing, and shelf dusting to ensure a premium shopping experience that enhances your brand image.",
+    image: "/assets/services/store_cleaning.png",
   },
 ];
 
@@ -165,8 +177,13 @@ export default function ServicesPage() {
               key={service.id}
               variants={cardVariants as any}
               whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden group rounded-3xl border border-border bg-card text-card-foreground shadow-md transition-all duration-300 flex flex-col md:flex-row h-full p-5 gap-6 min-h-[300px] md:min-h-[340px]"
+              className="relative overflow-hidden group rounded-3xl border border-border bg-card text-card-foreground shadow-md transition-all duration-300 flex flex-col md:flex-row h-full p-5 gap-4 md:gap-6 min-h-[300px] md:min-h-[340px]"
             >
+              {/* Mobile-only Service Name */}
+              <h3 className="block md:hidden font-extrabold text-xl text-primary tracking-tight">
+                {service.name}
+              </h3>
+
               {/* Left Side: Image Container (Padded inside the card with rounded corners and border) */}
               <div className="relative w-full md:w-[46%] h-56 md:h-auto overflow-hidden rounded-2xl border border-border/10 bg-muted shrink-0">
                 <Image
@@ -186,7 +203,8 @@ export default function ServicesPage() {
                   {service.description}
                 </p>
                 <div className="flex flex-col items-end gap-2.5 mt-auto pt-4 border-t border-border/40 w-full">
-                  <h3 className="font-extrabold text-base sm:text-lg text-primary tracking-tight text-right w-full">
+                  {/* Desktop-only Service Name */}
+                  <h3 className="hidden md:block font-extrabold text-base sm:text-lg text-primary tracking-tight text-right w-full">
                     {service.name}
                   </h3>
                   <Link

@@ -1,102 +1,81 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 interface BeforeAfterItem {
   id: string;
   label: string;
   before: string;
   after: string;
+  beforeTitle: string;
+  beforeDesc: string;
+  afterTitle: string;
+  afterDesc: string;
 }
 
 const items: BeforeAfterItem[] = [
   {
     id: "kitchen",
-    label: "Kitchen Deep Clean",
+    label: "Kitchen Cleaning",
     before: "/assets/before-after/kitchen-before.png",
-    after: "/assets/before-after/kitchen-after.png"
+    after: "/assets/before-after/kitchen-after.png",
+    beforeTitle: "Initial Condition",
+    beforeDesc: "Grease build-up, messy counters, and stovetop grime.",
+    afterTitle: "Post-Cleaning Result",
+    afterDesc: "Polished counters, pristine surfaces, and sterilized appliances."
   },
   {
     id: "sofa",
     label: "Sofa & Upholstery",
     before: "/assets/before-after/sofa-before.png",
-    after: "/assets/before-after/sofa-after.png"
+    after: "/assets/before-after/sofa-after.png",
+    beforeTitle: "Deep Stains & Dirt",
+    beforeDesc: "Embedded dirt, stubborn stains, and dull fabric color.",
+    afterTitle: "Restored Fabric",
+    afterDesc: "Completely extracted dirt, stain-free, and refreshed fabric fibers."
   },
   {
     id: "office",
     label: "Office Workspace",
     before: "/assets/before-after/office-before.png",
-    after: "/assets/before-after/office-after.png"
+    after: "/assets/before-after/office-after.png",
+    beforeTitle: "Cluttered Desk & Dust",
+    beforeDesc: "Dusty surfaces, unorganized cables, and chaotic workspace.",
+    afterTitle: "Clean & Organized",
+    afterDesc: "Sanitized desks, organized workspace, and clear tidy environment."
   },
   {
     id: "window",
     label: "Window Cleaning",
     before: "/assets/before-after/window-before.png",
-    after: "/assets/before-after/window-after.png"
+    after: "/assets/before-after/window-after.png",
+    beforeTitle: "Smudged & Cloudy Glass",
+    beforeDesc: "Rain spots, dirt film, and fingerprints blocking natural light.",
+    afterTitle: "Streak-Free Clarity",
+    afterDesc: "Perfect transparency, clean frames, and brighter indoor spaces."
   },
   {
     id: "floor",
     label: "Tile & Floor Care",
     before: "/assets/before-after/floor-before.png",
-    after: "/assets/before-after/floor-after.png"
+    after: "/assets/before-after/floor-after.png",
+    beforeTitle: "Dull Tiles & Grout",
+    beforeDesc: "Discolored grout lines, surface dirt, and lack of shine.",
+    afterTitle: "Deep-Cleaned Polish",
+    afterDesc: "Restored shine, brightened grout, and pristine polished floors."
   }
 ];
 
 export function BeforeAfter() {
   const [activeTab, setActiveTab] = useState("kitchen");
-  const [sliderPosition, setSliderPosition] = useState(50); // percentage (0 to 100)
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const activeItem = items.find((item) => item.id === activeTab) || items[0];
 
-  const handleMove = (clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const position = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPosition(position);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    handleMove(e.clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    if (e.touches.length > 0) {
-      handleMove(e.touches[0].clientX);
-    }
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    handleMove(e.clientX);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    if (e.touches.length > 0) {
-      handleMove(e.touches[0].clientX);
-    }
-  };
-
-  useEffect(() => {
-    const handleMouseUp = () => setIsDragging(false);
-    window.addEventListener("mouseup", handleMouseUp);
-    window.addEventListener("touchend", handleMouseUp);
-    return () => {
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.removeEventListener("touchend", handleMouseUp);
-    };
-  }, [isDragging]);
-
   return (
-    <section className="pt-8 pb-8 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden select-none">
+    <section className="pt-16 pb-16 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden select-none">
       {/* Decorative Glows */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/2 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -133,7 +112,7 @@ export function BeforeAfter() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground leading-relaxed"
           >
-            Drag the slider horizontally to reveal the dramatic difference our premium cleaning services deliver.
+            Compare the dramatic difference our premium cleaning services deliver side-by-side.
           </motion.p>
         </div>
 
@@ -144,10 +123,7 @@ export function BeforeAfter() {
             return (
               <button
                 key={item.id}
-                onClick={() => {
-                  setActiveTab(item.id);
-                  setSliderPosition(50); // reset slider
-                }}
+                onClick={() => setActiveTab(item.id)}
                 className={`relative px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 cursor-pointer ${
                   isActive 
                     ? "text-primary-foreground" 
@@ -167,66 +143,81 @@ export function BeforeAfter() {
           })}
         </div>
 
-        {/* Comparison Slider Container */}
-        <div 
-          ref={containerRef}
-          onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
-          onMouseMove={handleMouseMove}
-          onTouchMove={handleTouchMove}
-          className="relative w-full max-w-4xl mx-auto h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-border bg-muted cursor-ew-resize select-none"
-        >
-          {/* AFTER Image (Always in Background) */}
-          <div className="absolute inset-0 w-full h-full">
-            <Image
-              src={activeItem.after}
-              alt="After cleaning"
-              fill
-              priority
-              sizes="(max-width: 1200px) 100vw, 900px"
-              className="object-cover object-center pointer-events-none"
-            />
-            {/* Labeled Badge */}
-            <div className="absolute bottom-6 right-6 z-20 bg-emerald-500/90 text-white font-extrabold text-xs tracking-wider uppercase px-4 py-2 rounded-xl backdrop-blur-sm shadow-md">
-              After Clean
-            </div>
-          </div>
-
-          {/* BEFORE Image (On Top, Clipped) */}
-          <div 
-            className="absolute inset-0 w-full h-full z-10 overflow-hidden"
-            style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
-          >
-            <Image
-              src={activeItem.before}
-              alt="Before cleaning"
-              fill
-              priority
-              sizes="(max-width: 1200px) 100vw, 900px"
-              className="object-cover object-center pointer-events-none"
-            />
-            {/* Labeled Badge */}
-            <div className="absolute bottom-6 left-6 z-20 bg-rose-500/90 text-white font-extrabold text-xs tracking-wider uppercase px-4 py-2 rounded-xl backdrop-blur-sm shadow-md">
-              Before Clean
-            </div>
-          </div>
-
-          {/* Sliding Drag Handle Bar & Circle */}
-          <div 
-            className="absolute top-0 bottom-0 z-20 w-[3px] bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] pointer-events-none"
-            style={{ left: `${sliderPosition}%` }}
-          >
-            {/* Central Circle Grip */}
-            <div 
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 rounded-full border-[3px] border-white bg-primary text-white shadow-xl flex items-center justify-center pointer-events-auto hover:scale-105 active:scale-95 transition-transform duration-200 cursor-ew-resize"
+        {/* Side-by-Side Comparison Cards */}
+        <div className="max-w-6xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
             >
-              <div className="flex items-center gap-0.5 animate-pulse">
-                <ChevronLeft className="w-4 h-4 stroke-[3px]" />
-                <ChevronRight className="w-4 h-4 stroke-[3px]" />
-              </div>
-            </div>
-          </div>
+              {/* BEFORE Card */}
+              <motion.div 
+                whileHover={{ y: -4 }}
+                className="bg-card border border-border rounded-3xl overflow-hidden shadow-lg p-4 flex flex-col gap-4"
+              >
+                {/* Image Container */}
+                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-muted">
+                  <Image
+                    src={activeItem.before}
+                    alt={`${activeItem.label} Before`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    className="object-cover object-center"
+                    priority
+                  />
+                  {/* Before Badge */}
+                  <div className="absolute top-4 left-4 bg-red-600 text-white font-extrabold text-[10px] sm:text-xs tracking-wider uppercase px-3.5 py-1.5 rounded-lg shadow-md z-10">
+                    Before
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="px-2 pb-2">
+                  <h3 className="font-extrabold text-lg text-foreground mb-1 tracking-tight">
+                    {activeItem.beforeTitle}
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    {activeItem.beforeDesc}
+                  </p>
+                </div>
+              </motion.div>
 
+              {/* AFTER Card */}
+              <motion.div 
+                whileHover={{ y: -4 }}
+                className="bg-card border border-border rounded-3xl overflow-hidden shadow-lg p-4 flex flex-col gap-4"
+              >
+                {/* Image Container */}
+                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-muted">
+                  <Image
+                    src={activeItem.after}
+                    alt={`${activeItem.label} After`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 600px"
+                    className="object-cover object-center"
+                    priority
+                  />
+                  {/* After Badge */}
+                  <div className="absolute top-4 left-4 bg-emerald-600 text-white font-extrabold text-[10px] sm:text-xs tracking-wider uppercase px-3.5 py-1.5 rounded-lg shadow-md z-10">
+                    After
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="px-2 pb-2">
+                  <h3 className="font-extrabold text-lg text-foreground mb-1 tracking-tight flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <span>{activeItem.afterTitle}</span>
+                  </h3>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    {activeItem.afterDesc}
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
       </div>

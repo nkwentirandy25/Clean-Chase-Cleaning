@@ -18,13 +18,18 @@ import {
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "/services" },
   { name: "About Us", href: "/about" },
+  { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
+  const validRoutes = ["/", "/about", "/contact", "/privacy", "/quote", "/services", "/terms"];
+  const isNotFound = !validRoutes.includes(pathname);
+
+  if (isNotFound) return null;
+
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -83,24 +88,32 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 relative">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "relative py-2 text-sm font-semibold transition-colors duration-200 group",
-                  useWhiteText
-                    ? "text-white/90 hover:text-white dark:text-white/90 dark:hover:text-white"
-                    : "text-black/80 hover:text-primary dark:text-white/80 dark:hover:text-primary"
-                )}
-              >
-                <span>{link.name}</span>
-                <span className={cn(
-                  "absolute bottom-0 left-0 w-full h-[2px] scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100",
-                  useWhiteText ? "bg-white" : "bg-primary"
-                )} />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "relative py-2 text-sm font-semibold transition-colors duration-200 group",
+                    isActive
+                      ? (useWhiteText ? "text-white font-extrabold" : "text-primary dark:text-primary")
+                      : (useWhiteText
+                          ? "text-white/90 hover:text-white dark:text-white/90 dark:hover:text-white"
+                          : "text-black/80 hover:text-primary dark:text-white/80 dark:hover:text-primary")
+                  )}
+                >
+                  <span>{link.name}</span>
+                  <span className={cn(
+                    "absolute bottom-0 left-0 w-full h-[2px] origin-left transition-transform duration-300 ease-out",
+                    isActive 
+                      ? "scale-x-100" 
+                      : "scale-x-0 group-hover:scale-x-100",
+                    useWhiteText ? "bg-white" : "bg-primary"
+                  )} />
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Actions (Theme Toggle & Quote Button) */}
@@ -213,22 +226,30 @@ export function Navbar() {
                 </SheetHeader>
 
                 <nav className="flex flex-col gap-1 mt-4">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="block py-2 px-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                  {navLinks.map((link, index) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <motion.div
+                        key={link.name}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
                       >
-                        {link.name}
-                      </Link>
-                    </motion.div>
-                  ))}
+                        <Link
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className={cn(
+                            "block py-2 px-3 rounded-lg text-base font-medium transition-colors",
+                            isActive
+                              ? "text-primary bg-primary/5 font-bold"
+                              : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                          )}
+                        >
+                          {link.name}
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
                 </nav>
 
                 <div className="mt-auto pt-6 border-t border-border/40">

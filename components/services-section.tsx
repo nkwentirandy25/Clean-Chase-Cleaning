@@ -157,6 +157,28 @@ const coreServices: ServiceItem[] = [
       "Dust mite & dander removal",
       "Tough stain treatment"
     ]
+  },
+  {
+    id: 14,
+    name: "Agricultural Cleaning",
+    description: "Professional sanitation and pressure wash solutions for agricultural facilities, barns, and machinery. We maintain strict hygiene standards.",
+    image: "/assets/services/agricultural_cleaning.png",
+    points: [
+      "Livestock barn disinfecting",
+      "High-pressure wash & sanitation",
+      "Bio-security hygiene compliance"
+    ]
+  },
+  {
+    id: 15,
+    name: "Store Cleaning",
+    description: "Keep your retail store, supermarket, or shop spotless and inviting. We ensure a premium shopping experience that highlights your brand.",
+    image: "/assets/services/store_cleaning.png",
+    points: [
+      "Glass window & aisle floor care",
+      "Checkout zone & shelf dusting",
+      "Customer-facing sanitization"
+    ]
   }
 ];
 
