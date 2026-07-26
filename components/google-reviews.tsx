@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Star, Sparkles, CheckCircle2 } from "lucide-react";
 
@@ -81,10 +81,32 @@ export function GoogleReviews() {
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const intervalId = setInterval(() => {
+      if (isPaused || isDraggingRef.current) return;
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      if (container.scrollLeft >= maxScrollLeft - 15) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        const firstChild = container.children[0] as HTMLDivElement;
+        const scrollStep = firstChild ? firstChild.clientWidth + 32 : 350;
+        container.scrollBy({ left: scrollStep, behavior: "smooth" });
+      }
+    }, 3500);
+
+    return () => clearInterval(intervalId);
+  }, [isPaused]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollContainerRef.current) return;
     isDraggingRef.current = true;
+    setIsPaused(true);
     startXRef.current = e.pageX - scrollContainerRef.current.offsetLeft;
     scrollLeftRef.current = scrollContainerRef.current.scrollLeft;
     scrollContainerRef.current.style.scrollBehavior = "auto";
@@ -102,6 +124,7 @@ export function GoogleReviews() {
   const handleMouseUpOrLeave = () => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
+    setIsPaused(false);
     if (scrollContainerRef.current) {
       scrollContainerRef.current.style.scrollBehavior = "smooth";
       scrollContainerRef.current.style.scrollSnapType = "x mandatory";
@@ -181,7 +204,13 @@ export function GoogleReviews() {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
-          onMouseLeave={handleMouseUpOrLeave}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => {
+            setIsPaused(false);
+            handleMouseUpOrLeave();
+          }}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
           className="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none pb-6 px-1 active:cursor-grabbing cursor-grab select-none"
         >
           {reviews.map((review, idx) => (

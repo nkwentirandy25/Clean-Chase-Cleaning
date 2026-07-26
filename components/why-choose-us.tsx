@@ -19,72 +19,54 @@ interface FeatureItem {
   id: number;
   icon: React.ReactNode;
   title: string;
-  description: string;
-  badge: string;
 }
 
 const features: FeatureItem[] = [
   {
     id: 1,
-    icon: <ShieldCheck className="w-6 h-6 text-primary" />,
-    title: "Public Liability Insurance",
-    description: "Fully insured for public liability up to standard limits, giving you absolute protection and peace of mind.",
-    badge: "Insured"
+    icon: <ShieldCheck className="w-5 h-5" />,
+    title: "Public Liability Insurance"
   },
   {
     id: 2,
-    icon: <Briefcase className="w-6 h-6 text-indigo-500" />,
-    title: "Employers Liability Insurance",
-    description: "Comprehensive coverage protecting our staff and clients against any unforeseen workplace incidents.",
-    badge: "Covered"
+    icon: <Briefcase className="w-5 h-5" />,
+    title: "Employers Liability Insurance"
   },
   {
     id: 3,
-    icon: <HeartHandshake className="w-6 h-6 text-emerald-500" />,
-    title: "Health & Safety Compliance",
-    description: "Strict adherence to safety guidelines and sanitary standards to ensure clean and healthy surroundings.",
-    badge: "Compliant"
+    icon: <HeartHandshake className="w-5 h-5" />,
+    title: "Health & Safety Compliance"
   },
   {
     id: 4,
-    icon: <UserCheck className="w-6 h-6 text-amber-500" />,
-    title: "Right to Work",
-    description: "All our personnel undergo rigorous document checks to ensure legal work status verification.",
-    badge: "Verified"
+    icon: <UserCheck className="w-5 h-5" />,
+    title: "Right to Work"
   },
   {
     id: 5,
-    icon: <CheckCircle2 className="w-6 h-6 text-blue-500" />,
-    title: "DBS Check",
-    description: "Every member of our team has successfully passed national background checks for maximum security.",
-    badge: "Secured"
+    icon: <CheckCircle2 className="w-5 h-5" />,
+    title: "DBS Check"
   },
   {
     id: 6,
-    icon: <ClipboardList className="w-6 h-6 text-rose-500" />,
-    title: "Risk Assessment Training",
-    description: "Staff trained in hazards identification and risk mitigation protocols before beginning on-site work.",
-    badge: "Trained"
+    icon: <ClipboardList className="w-5 h-5" />,
+    title: "Risk Assessment Training"
   },
   {
     id: 7,
-    icon: <FileText className="w-6 h-6 text-violet-500" />,
-    title: "COSHH Awareness",
-    description: "Full awareness training regarding control of hazardous substances and safe chemical application.",
-    badge: "COSHH Safety"
+    icon: <FileText className="w-5 h-5" />,
+    title: "COSHH Awareness"
   },
   {
     id: 8,
-    icon: <GraduationCap className="w-6 h-6 text-cyan-500" />,
-    title: "Ladders & Step Ladders",
-    description: "Certified safety training for working at heights and safe ladder handling on client premises.",
-    badge: "Safety Certified"
+    icon: <GraduationCap className="w-5 h-5" />,
+    title: "Ladders & Step Ladders"
   }
 ];
 
 export function WhyChooseUs() {
   return (
-    <section className="pt-12 pb-12 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden">
+    <section className="pt-10 pb-10 bg-slate-50/50 dark:bg-slate-950/20 border-y border-border/40 relative overflow-hidden">
       {/* Radiant Background Glows */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/3 right-1/4 -translate-y-1/2 w-[350px] h-[350px] bg-emerald-500/5 rounded-full blur-[90px] pointer-events-none" />
@@ -151,44 +133,38 @@ export function WhyChooseUs() {
           </motion.div>
         </div>
 
-        {/* Features Grid (4 cards per row on desktop) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, idx) => (
-            <motion.div
-              key={feature.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="relative p-6 sm:p-8 rounded-3xl border border-border bg-card hover:bg-card/90 transition-all duration-300 flex flex-col shadow-sm group"
-            >
-              {/* Glowing card border on hover */}
-              <div className="absolute inset-0 border border-primary/20 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-              {/* Icon Box with glass backdrop */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-900 group-hover:bg-primary/10 transition-colors duration-300">
-                  <div className="transition-transform duration-500 group-hover:rotate-6">
+        {/* Single Trust Card containing all features */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative w-full p-6 sm:p-10 md:p-12 rounded-[2rem] border border-border bg-card/65 backdrop-blur-md shadow-sm overflow-hidden group"
+        >
+          {/* Subtle glowing card border overlay */}
+          <div className="absolute inset-0 border border-primary/10 rounded-[2rem] pointer-events-none" />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10">
+            {features.map((feature) => (
+              <div
+                key={feature.id}
+                className="flex items-center gap-3.5 group/item transition-all duration-300"
+              >
+                {/* Compact Icon container */}
+                <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-primary/5 dark:bg-primary/10 text-primary shrink-0 transition-colors duration-300 group-hover/item:bg-primary group-hover/item:text-primary-foreground shadow-sm">
+                  <div className="w-5 h-5 flex items-center justify-center transition-transform duration-500 group-hover/item:rotate-6">
                     {feature.icon}
                   </div>
                 </div>
-
-                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest bg-secondary px-2.5 py-1 rounded-full">
-                  {feature.badge}
+                
+                {/* Title */}
+                <span className="text-sm sm:text-base font-semibold text-foreground group-hover/item:text-primary transition-colors duration-200 leading-snug">
+                  {feature.title}
                 </span>
               </div>
-
-              <h4 className="text-lg font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-200 leading-snug">
-                {feature.title}
-              </h4>
-
-              <p className="text-sm text-muted-foreground leading-relaxed mt-1">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </motion.div>
 
       </div>
     </section>

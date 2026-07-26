@@ -207,7 +207,7 @@ const cardVariants = {
 
 export function ServicesSection() {
   return (
-    <section className="pt-10 pb-8 bg-background relative overflow-hidden">
+    <section className="pt-10 pb-2 bg-background relative overflow-hidden">
       {/* Decorative Blur Orbs */}
       <div className="absolute top-1/4 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -242,10 +242,27 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-muted-foreground leading-relaxed"
+            className="text-lg text-muted-foreground leading-relaxed mb-6"
           >
             Clean Chase offers reliable, high-quality, and tailormade cleaning solutions. Experience the standard of absolute cleanliness in every space.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex justify-center"
+          >
+            <Button
+              render={<Link href="/quote" />}
+              size="lg"
+              className="rounded-full shadow-lg shadow-primary/10 hover:shadow-primary/20 active:scale-95 transition-all duration-200 font-semibold h-11 px-8 gap-2"
+            >
+              Book Your Cleaning
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />
+            </Button>
+          </motion.div>
         </div>
 
         {/* Services Grid (3 cards per row on desktop) */}
@@ -293,7 +310,24 @@ export function ServicesSection() {
           ))}
         </motion.div>
 
-
+        {/* View Our Services Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-center mt-12"
+        >
+          <Button
+            render={<Link href="/services" />}
+            variant="outline"
+            size="lg"
+            className="rounded-full shadow-md hover:shadow-lg transition-all duration-200 font-semibold h-11 px-8 gap-2 border-primary/30 text-primary hover:bg-primary/5 hover:border-primary"
+          >
+            View Our Services
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />
+          </Button>
+        </motion.div>
 
       </div>
     </section>
