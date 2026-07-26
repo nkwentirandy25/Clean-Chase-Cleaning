@@ -144,6 +144,10 @@ export function WhyChooseUs() {
           {/* Subtle glowing card border overlay */}
           <div className="absolute inset-0 border border-primary/10 rounded-[2rem] pointer-events-none" />
           
+          <p className="text-xs sm:text-sm font-bold text-primary/80 uppercase tracking-widest mb-6 sm:mb-8 text-center relative z-10">
+            We provide the following upon request
+          </p>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10">
             {features.map((feature) => (
               <div
