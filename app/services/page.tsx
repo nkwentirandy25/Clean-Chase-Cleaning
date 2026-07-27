@@ -177,43 +177,41 @@ export default function ServicesPage() {
               key={service.id}
               variants={cardVariants as any}
               whileHover={{ scale: 1.02 }}
-              className="relative overflow-hidden group rounded-3xl border border-border bg-card text-card-foreground shadow-md transition-all duration-300 flex flex-col md:flex-row h-full p-5 gap-4 md:gap-6 min-h-[300px] md:min-h-[340px]"
+              className="relative overflow-hidden group rounded-3xl border border-border bg-card text-card-foreground shadow-md transition-all duration-300 flex flex-col h-full p-5 gap-4 md:gap-6 min-h-[300px] md:min-h-[340px]"
             >
-              {/* Mobile-only Service Name */}
-              <h3 className="block md:hidden font-extrabold text-xl text-primary tracking-tight">
+              {/* Service Name */}
+              <h3 className="font-extrabold text-xl md:text-2xl text-primary tracking-tight text-left w-full">
                 {service.name}
               </h3>
 
-              {/* Left Side: Image Container (Padded inside the card with rounded corners and border) */}
-              <div className="relative w-full md:w-[46%] h-56 md:h-auto overflow-hidden rounded-2xl border border-border/10 bg-muted shrink-0">
-                <Image
-                  src={service.image}
-                  alt={service.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 30vw"
-                  className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                  priority={service.id <= 4}
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-transparent pointer-events-none" />
-              </div>
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6 flex-grow">
+                {/* Left Side: Image Container (Padded inside the card with rounded corners and border) */}
+                <div className="relative w-full md:w-[46%] h-56 md:h-auto overflow-hidden rounded-2xl border border-border/10 bg-muted shrink-0">
+                  <Image
+                    src={service.image}
+                    alt={service.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    priority={service.id <= 4}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/10 via-transparent to-transparent pointer-events-none" />
+                </div>
 
-              {/* Right Side: Content Container */}
-              <div className="w-full md:w-[54%] py-2 flex flex-col justify-between gap-4">
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-                  {service.description}
-                </p>
-                <div className="flex flex-col items-end gap-2.5 mt-auto pt-4 border-t border-border/40 w-full">
-                  {/* Desktop-only Service Name */}
-                  <h3 className="hidden md:block font-extrabold text-base sm:text-lg text-primary tracking-tight text-right w-full">
-                    {service.name}
-                  </h3>
-                  <Link
-                    href="/quote"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/95 text-xs sm:text-sm font-bold rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-98 shrink-0 group/btn"
-                  >
-                    <span>Get Quote</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-                  </Link>
+                {/* Right Side: Content Container */}
+                <div className="w-full md:w-[54%] py-2 flex flex-col justify-between gap-4">
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+                    {service.description}
+                  </p>
+                  <div className="flex flex-col items-end gap-2.5 mt-auto pt-4 border-t border-border/40 w-full">
+                    <Link
+                      href="/quote"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/95 text-xs sm:text-sm font-bold rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-98 shrink-0 group/btn"
+                    >
+                      <span>Get Quote</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
