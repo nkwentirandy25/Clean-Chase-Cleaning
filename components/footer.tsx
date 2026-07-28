@@ -45,7 +45,8 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
 export function Footer() {
   const pathname = usePathname();
   const validRoutes = ["/", "/about", "/contact", "/privacy", "/quote", "/services", "/terms"];
-  const isNotFound = !validRoutes.includes(pathname);
+  const isQuoteSubroute = pathname?.startsWith("/quote/");
+  const isNotFound = !validRoutes.includes(pathname) && !isQuoteSubroute;
 
   if (isNotFound) return null;
 
