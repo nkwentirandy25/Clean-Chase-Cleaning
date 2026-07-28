@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Truck, 
@@ -15,6 +15,11 @@ import Link from "next/link";
 export default function TransportFleetCleaningQuote() {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Scroll to top on step change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
   
   // Transport & Fleet Cleaning Form State
   const [formData, setFormData] = useState({
@@ -160,7 +165,7 @@ export default function TransportFleetCleaningQuote() {
                           </div>
                         )}
                       </div>
-                      <span className="text-[10px] sm:text-xs font-bold text-foreground absolute top-12 whitespace-nowrap">Requirements</span>
+                      <span className="hidden sm:block text-[10px] sm:text-xs font-bold text-foreground absolute top-12 whitespace-nowrap">Requirements</span>
                     </div>
 
                     {/* Step 2 Node */}
@@ -179,7 +184,7 @@ export default function TransportFleetCleaningQuote() {
                           </motion.div>
                         )}
                       </div>
-                      <span className="text-[10px] sm:text-xs font-bold text-foreground absolute top-12 whitespace-nowrap">Your Details</span>
+                      <span className="hidden sm:block text-[10px] sm:text-xs font-bold text-foreground absolute top-12 whitespace-nowrap">Your Details</span>
                     </div>
 
                     {/* Complete Node */}
@@ -189,7 +194,7 @@ export default function TransportFleetCleaningQuote() {
                           <Check className="w-4 h-4 text-muted-foreground/20" />
                         </div>
                       </div>
-                      <span className="text-[10px] sm:text-xs font-bold text-muted-foreground/40 absolute top-12 whitespace-nowrap">Done</span>
+                      <span className="hidden sm:block text-[10px] sm:text-xs font-bold text-muted-foreground/40 absolute top-12 whitespace-nowrap">Done</span>
                     </div>
                   </div>
                 </div>
