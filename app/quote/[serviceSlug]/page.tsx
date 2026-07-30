@@ -77,6 +77,7 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
     phone: "",
     addressLine1: "",
     postcode: "",
+    comments: "",
     contactMethod: "",
   });
 
@@ -104,7 +105,7 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
     );
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
@@ -173,6 +174,7 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
       phone: "",
       addressLine1: "",
       postcode: "",
+      comments: "",
       contactMethod: "",
     });
     setErrors({});
@@ -343,6 +345,22 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                   )}
                 </div>
 
+                {/* Comments / Message */}
+                <div className="space-y-2">
+                  <label htmlFor="comments" className="block font-bold text-foreground text-sm sm:text-base">
+                    Comments
+                  </label>
+                  <textarea
+                    id="comments"
+                    name="comments"
+                    value={formData.comments}
+                    onChange={handleInputChange}
+                    placeholder="e.g. Please let us know if you have any special requirements or additional details."
+                    rows={3}
+                    className="w-full px-5 py-3.5 bg-card border border-border/80 rounded-2xl text-foreground placeholder:text-muted-foreground/60 outline-none transition-all duration-200 focus:ring-2 focus:ring-primary/10 focus:border-primary resize-y"
+                  />
+                </div>
+
                 {/* How would you like to be contacted? */}
                 <div className="space-y-3 pt-2">
                   <label className="block font-bold text-foreground text-sm sm:text-base">
@@ -468,6 +486,14 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                     <p>
                       <span className="font-medium">Phone:</span> <span className="text-foreground">{formData.phone}</span>
                     </p>
+                    {formData.comments && (
+                      <p className="pt-1.5 border-t border-border/60 mt-1.5">
+                        <span className="font-medium block text-muted-foreground mb-0.5">Comments:</span>
+                        <span className="text-foreground italic font-normal break-words block bg-secondary/20 p-2 rounded-lg border border-border/40">
+                          "{formData.comments}"
+                        </span>
+                      </p>
+                    )}
                   </div>
                 </div>
 

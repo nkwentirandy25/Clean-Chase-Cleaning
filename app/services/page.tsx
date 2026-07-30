@@ -210,23 +210,27 @@ export default function ServicesPage() {
                           ? "/quote/transport-fleet-cleaning" 
                           : service.id === 5 
                             ? "/quote/end-of-tenancy-house-cleaning"
-                            : service.id === 1
-                              ? "/quote/office-cleaning"
-                              : service.id === 2
-                                ? "/quote/business-site-cleaning"
-                                : service.id === 4
-                                  ? "/quote/pubs-nightclubs-restaurants"
-                                  : service.id === 6
-                                    ? "/quote/commercial-kitchen"
-                                    : service.id === 7
-                                      ? "/quote/healthcare-facilities"
-                                      : service.id === 9
-                                        ? "/quote/school-cleaning"
-                                        : service.id === 14
-                                          ? "/quote/agricultural-cleaning"
-                                          : service.id === 15
-                                            ? "/quote/store-cleaning"
-                                            : "/contact"
+                            : service.id === 3
+                              ? "/quote/student-accommodation-cleaning"
+                              : service.id === 13
+                                ? "/quote/carpet-cleaning"
+                                : service.id === 1
+                                  ? "/quote/office-cleaning"
+                                  : service.id === 2
+                                    ? "/quote/business-site-cleaning"
+                                    : service.id === 4
+                                      ? "/quote/pubs-nightclubs-restaurants"
+                                      : service.id === 6
+                                        ? "/quote/commercial-kitchen"
+                                        : service.id === 7
+                                          ? "/quote/healthcare-facilities"
+                                          : service.id === 9
+                                            ? "/quote/school-cleaning"
+                                            : service.id === 14
+                                              ? "/quote/agricultural-cleaning"
+                                              : service.id === 15
+                                                ? "/quote/store-cleaning"
+                                                : "/contact"
                       }
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/95 text-xs sm:text-sm font-bold rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-98 shrink-0 group/btn"
                     >
