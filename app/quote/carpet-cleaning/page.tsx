@@ -93,12 +93,16 @@ export default function CarpetCleaningQuote() {
     }
   };
 
-  const handleFabricTypeChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, fabricType: value }));
+  const handleFabricTypeChange = (value: string | null) => {
+    if (value) {
+      setFormData((prev) => ({ ...prev, fabricType: value }));
+    }
   };
 
-  const handleStainSeverityChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, stainSeverity: value }));
+  const handleStainSeverityChange = (value: string | null) => {
+    if (value) {
+      setFormData((prev) => ({ ...prev, stainSeverity: value }));
+    }
   };
 
   const selectContactMethod = (method: string) => {
