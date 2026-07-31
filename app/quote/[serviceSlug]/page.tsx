@@ -10,8 +10,12 @@ import {
   FileText,
   Loader2,
   Sparkles,
-  ShieldCheck
+  ShieldCheck,
+  CalendarIcon
 } from "lucide-react";
+import { format } from "date-fns";
+import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -62,6 +66,16 @@ const serviceMap: Record<string, ServiceInfo> = {
     name: "Store Cleaning",
     description: "Keep your retail store, supermarket, or fashion boutique spotless and inviting for customers. We handle glass window polishing, deep cleaning of checkout zones, aisle floor polishing, and shelf dusting to ensure a premium shopping experience that enhances your brand image.",
   },
+  "commercial-kitchen-equipment-cleaning": {
+    id: 8,
+    name: "Commercial Kitchen Equipment Cleaning",
+    description: "Extend the life of your appliances and prevent fire hazards with deep degreasing. We dismantle and clean commercial ovens, deep fryers, gas stoves, griddles, exhaust fans, filters, and ductwork, restoring cooking equipment to pristine, energy-efficient, and fire-safe conditions.",
+  },
+  "industrial-warehouse-cleaning": {
+    id: 11,
+    name: "Industrial & Warehouse Cleaning",
+    description: "Heavy-duty cleaning programs for factories, assembly lines, distribution hubs, and warehouses. We clean grease spills, sweep and scrub large floor surfaces, wipe down heavy racking systems, and maintain clean safety walkways to keep your industrial operations safe and compliant.",
+  },
 };
 
 export default function ServiceQuotePage({ params }: { params: Promise<{ serviceSlug: string }> }) {
@@ -78,12 +92,14 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
     addressLine1: "",
     postcode: "",
     comments: "",
+    siteVisitDate: "",
     contactMethod: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
 
   // Scroll to top on load
   useEffect(() => {
@@ -175,6 +191,7 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
       addressLine1: "",
       postcode: "",
       comments: "",
+      siteVisitDate: "",
       contactMethod: "",
     });
     setErrors({});
@@ -361,6 +378,37 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                   />
                 </div>
 
+                {/* Schedule a Site Visit */}
+                <div className="space-y-2">
+                  <label className="block font-bold text-foreground text-sm sm:text-base">
+                    Schedule a Site Visit
+                  </label>
+                  <Popover open={isSiteVisitOpen} onOpenChange={setIsSiteVisitOpen}>
+                    <PopoverTrigger
+                      type="button"
+                      className="w-full px-5 py-3.5 bg-card border border-border/80 rounded-2xl text-foreground text-left outline-none transition-all duration-200 focus:ring-2 focus:ring-primary/10 focus:border-primary flex items-center justify-between cursor-pointer"
+                    >
+                      <span className={formData.siteVisitDate ? "text-foreground" : "text-muted-foreground/60"}>
+                        {formData.siteVisitDate
+                          ? format(new Date(formData.siteVisitDate + "T00:00:00"), "PPP")
+                          : "Pick a date"}
+                      </span>
+                      <CalendarIcon className="w-4 h-4 text-muted-foreground/80" />
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0 bg-popover border border-border rounded-2xl shadow-lg z-50" align="start">
+                      <ShadcnCalendar
+                        mode="single"
+                        selected={formData.siteVisitDate ? new Date(formData.siteVisitDate + "T00:00:00") : undefined}
+                        onSelect={(date) => {
+                          const dateString = date ? format(date, "yyyy-MM-dd") : "";
+                          setFormData((prev) => ({ ...prev, siteVisitDate: dateString }));
+                          setIsSiteVisitOpen(false);
+                        }}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
                 {/* How would you like to be contacted? */}
                 <div className="space-y-3 pt-2">
                   <label className="block font-bold text-foreground text-sm sm:text-base">
@@ -491,6 +539,14 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                         <span className="font-medium block text-muted-foreground mb-0.5">Comments:</span>
                         <span className="text-foreground italic font-normal break-words block bg-secondary/20 p-2 rounded-lg border border-border/40">
                           "{formData.comments}"
+                        </span>
+                      </p>
+                    )}
+                    {formData.siteVisitDate && (
+                      <p className="pt-1.5 border-t border-border/60 mt-1.5">
+                        <span className="font-medium block text-muted-foreground mb-0.5">Scheduled Site Visit:</span>
+                        <span className="text-foreground font-semibold block bg-secondary/20 p-2 rounded-lg border border-border/40">
+                          {format(new Date(formData.siteVisitDate + "T00:00:00"), "PPP")}
                         </span>
                       </p>
                     )}

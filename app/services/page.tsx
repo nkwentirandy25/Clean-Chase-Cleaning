@@ -83,7 +83,7 @@ const services: ServiceItem[] = [
   {
     id: 12,
     name: "Transport & Fleet Cleaning",
-    description: "Keep your logistics assets representing your company professionally on the road. We provide complete exterior high-pressure washing, chassis cleaning, and thorough interior sanitation of buses, trains, delivery vans, cargo trucks, and executive corporate fleets.",
+    description: "Keep your logistics assets representing your company professionally on the road. We provide complete exterior high-pressure washing, chassis cleaning, and thorough interior sanitation of delivery vans, cargo trucks, and executive corporate fleets.",
     image: "/assets/services/transport_fleet_cleaning.png",
   },
   {
@@ -103,6 +103,12 @@ const services: ServiceItem[] = [
     name: "Store Cleaning",
     description: "Keep your retail store, supermarket, or fashion boutique spotless and inviting for customers. We handle glass window polishing, deep cleaning of checkout zones, aisle floor polishing, and shelf dusting to ensure a premium shopping experience that enhances your brand image.",
     image: "/assets/services/store_cleaning.png",
+  },
+  {
+    id: 16,
+    name: "Deep Home Cleaning",
+    description: "Bring back that 'brand new' home feel with our extensive deep residential cleaning. We thoroughly clean and sanitize kitchens, bathrooms, living areas, skirting boards, door frames, light switches, and inside windows, reaching all those easily missed corners to leave your home perfectly fresh and healthy.",
+    image: "/assets/services/deep_home_cleaning.png",
   },
 ];
 
@@ -206,31 +212,39 @@ export default function ServicesPage() {
                   <div className="flex flex-col items-end gap-2.5 mt-auto pt-4 border-t border-border/40 w-full">
                     <Link
                       href={
-                        service.id === 12 
-                          ? "/quote/transport-fleet-cleaning" 
-                          : service.id === 5 
-                            ? "/quote/end-of-tenancy-house-cleaning"
-                            : service.id === 3
-                              ? "/quote/student-accommodation-cleaning"
-                              : service.id === 13
-                                ? "/quote/carpet-cleaning"
-                                : service.id === 1
-                                  ? "/quote/office-cleaning"
-                                  : service.id === 2
-                                    ? "/quote/business-site-cleaning"
-                                    : service.id === 4
-                                      ? "/quote/pubs-nightclubs-restaurants"
-                                      : service.id === 6
-                                        ? "/quote/commercial-kitchen"
-                                        : service.id === 7
-                                          ? "/quote/healthcare-facilities"
-                                          : service.id === 9
-                                            ? "/quote/school-cleaning"
-                                            : service.id === 14
-                                              ? "/quote/agricultural-cleaning"
-                                              : service.id === 15
-                                                ? "/quote/store-cleaning"
-                                                : "/contact"
+                        service.id === 10
+                          ? "/quote/after-builders-cleaning"
+                          : service.id === 11
+                            ? "/quote/industrial-warehouse-cleaning"
+                          : service.id === 12 
+                            ? "/quote/transport-fleet-cleaning" 
+                            : service.id === 16
+                            ? "/quote/deep-home-cleaning"
+                            : service.id === 5 
+                              ? "/quote/end-of-tenancy-house-cleaning"
+                              : service.id === 3
+                                ? "/quote/student-accommodation-cleaning"
+                                : service.id === 13
+                                  ? "/quote/carpet-cleaning"
+                                  : service.id === 1
+                                    ? "/quote/office-cleaning"
+                                    : service.id === 8
+                                      ? "/quote/commercial-kitchen-equipment-cleaning"
+                                      : service.id === 2
+                                        ? "/quote/business-site-cleaning"
+                                        : service.id === 4
+                                          ? "/quote/pubs-nightclubs-restaurants"
+                                          : service.id === 6
+                                            ? "/quote/commercial-kitchen"
+                                            : service.id === 7
+                                              ? "/quote/healthcare-facilities"
+                                              : service.id === 9
+                                                ? "/quote/school-cleaning"
+                                                : service.id === 14
+                                                  ? "/quote/agricultural-cleaning"
+                                                  : service.id === 15
+                                                    ? "/quote/store-cleaning"
+                                                    : "/contact"
                       }
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/95 text-xs sm:text-sm font-bold rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-98 shrink-0 group/btn"
                     >

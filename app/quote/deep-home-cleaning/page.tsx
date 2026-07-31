@@ -21,7 +21,7 @@ import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 
-export default function EndOfTenancyQuote() {
+export default function DeepHomeCleaningQuote() {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
@@ -31,7 +31,7 @@ export default function EndOfTenancyQuote() {
     window.scrollTo(0, 0);
   }, [step]);
   
-  // End of Tenancy Cleaning Form State
+  // Deep Home Cleaning Form State
   const [formData, setFormData] = useState({
     // Step 1: Property Details
     bedrooms: 2,
@@ -157,7 +157,7 @@ export default function EndOfTenancyQuote() {
             Get a Quote
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Secure your tenancy deposit or prepare your property for immediate lease with our comprehensive move-in/move-out deep cleaning form.
+            Bring back that 'brand new' home feel with our extensive deep residential cleaning form.
           </p>
         </div>
 
@@ -828,7 +828,7 @@ export default function EndOfTenancyQuote() {
 
                 <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground mb-4">Request Submitted!</h2>
                 <p className="text-muted-foreground max-w-md text-sm sm:text-base leading-relaxed mb-8">
-                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for <span className="font-bold text-foreground">End of Tenancy House Cleaning</span> has been received. Our team will analyze your requirements and get back to you with a custom quote within 24 hours.
+                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for <span className="font-bold text-foreground">Deep Home Cleaning</span> has been received. Our team will analyze your requirements and get back to you with a custom quote within 24 hours.
                 </p>
 
                 {/* Submitted Summary box */}

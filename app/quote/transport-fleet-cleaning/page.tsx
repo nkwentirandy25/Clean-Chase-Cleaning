@@ -8,13 +8,18 @@ import {
   ArrowLeft, 
   ArrowRight, 
   CheckCircle2,
-  FileText
+  FileText,
+  CalendarIcon
 } from "lucide-react";
+import { format } from "date-fns";
+import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 
 export default function TransportFleetCleaningQuote() {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
 
   // Scroll to top on step change
   useEffect(() => {
@@ -27,6 +32,7 @@ export default function TransportFleetCleaningQuote() {
     numVehicles: "",
     frequency: "",
     additionalInfo: "",
+    siteVisitDate: "",
     firstName: "",
     surname: "",
     email: "",
@@ -88,6 +94,7 @@ export default function TransportFleetCleaningQuote() {
       numVehicles: "",
       frequency: "",
       additionalInfo: "",
+      siteVisitDate: "",
       firstName: "",
       surname: "",
       email: "",
@@ -313,6 +320,8 @@ export default function TransportFleetCleaningQuote() {
                           />
                         </div>
 
+
+
                         {/* Next button */}
                         <div className="flex justify-end pt-4 border-t border-border">
                           <button
@@ -462,6 +471,37 @@ export default function TransportFleetCleaningQuote() {
                           )}
                         </div>
 
+                        {/* Schedule a Site Visit */}
+                        <div className="space-y-2">
+                          <label className="block text-sm sm:text-base font-extrabold tracking-wide text-foreground">
+                            Schedule a Site Visit
+                          </label>
+                          <Popover open={isSiteVisitOpen} onOpenChange={setIsSiteVisitOpen}>
+                            <PopoverTrigger
+                              type="button"
+                              className="w-full px-4 py-3 rounded-xl border border-input bg-background text-foreground text-left focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm flex items-center justify-between cursor-pointer"
+                            >
+                              <span className={formData.siteVisitDate ? "text-foreground" : "text-muted-foreground/60"}>
+                                {formData.siteVisitDate
+                                  ? format(new Date(formData.siteVisitDate + "T00:00:00"), "PPP")
+                                  : "Pick a date"}
+                              </span>
+                              <CalendarIcon className="w-4 h-4 text-muted-foreground/80" />
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-popover border border-border rounded-2xl shadow-lg z-50" align="start">
+                              <ShadcnCalendar
+                                mode="single"
+                                selected={formData.siteVisitDate ? new Date(formData.siteVisitDate + "T00:00:00") : undefined}
+                                onSelect={(date) => {
+                                  const dateString = date ? format(date, "yyyy-MM-dd") : "";
+                                  setFormData((prev) => ({ ...prev, siteVisitDate: dateString }));
+                                  setIsSiteVisitOpen(false);
+                                }}
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+
                         {/* How would you like to be contacted preference (Radio Selection Pills) */}
                         <div className="space-y-3">
                           <label className="block text-sm sm:text-base font-extrabold tracking-wide text-foreground">
@@ -554,6 +594,12 @@ export default function TransportFleetCleaningQuote() {
                   <p><span className="text-muted-foreground font-medium">Contact Preference:</span> <span className="font-semibold text-foreground">{formData.contactMethod}</span></p>
                   {formData.additionalInfo && (
                     <p><span className="text-muted-foreground font-medium">Additional Info:</span> <span className="italic block mt-1 bg-background p-2.5 rounded-lg border border-border text-foreground">{formData.additionalInfo}</span></p>
+                  )}
+                  {formData.siteVisitDate && (
+                    <p className="mt-1">
+                      <span className="text-muted-foreground font-medium">Scheduled Site Visit:</span>{" "}
+                      <span className="font-semibold text-foreground block mt-1 bg-background p-2.5 rounded-lg border border-border">{format(new Date(formData.siteVisitDate + "T00:00:00"), "PPP")}</span>
+                    </p>
                   )}
                   <div className="pt-2.5 border-t border-border/65 flex flex-col gap-1 text-xs text-muted-foreground">
                     <p><span className="font-medium">Contact Email:</span> <span className="text-foreground">{formData.email}</span></p>
