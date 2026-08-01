@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Clean Chase Cleaning",
+  title: "Clean Chase Cleaning | Professional Cleaning Company in UK",
   description: "Your trusted partner for all your cleaning needs",
 };
 

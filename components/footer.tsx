@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles,
   Phone,
   Mail,
   MapPin,
@@ -72,12 +72,16 @@ export function Footer() {
 
           {/* Column 1: Brand Pitch */}
           <div className="space-y-4 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-primary text-primary-foreground">
-                <Sparkles className="w-5 h-5" />
-              </div>
+            <Link href="/" className="flex items-center gap-3 group">
+              <Image
+                src="/assets/logo/logo.png"
+                alt="CleanChase Logo"
+                width={220}
+                height={55}
+                className="h-14 w-auto object-contain"
+              />
               <span className="text-xl font-bold tracking-tight">
-                Clean<span className="text-primary font-extrabold">Chase</span>
+                Clean Chase <span className="text-primary font-extrabold">Cleaning</span>
               </span>
             </Link>
             <p className="text-base text-muted-foreground leading-relaxed">

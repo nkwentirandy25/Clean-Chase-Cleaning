@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Menu, X, ArrowRight, Sparkles } from "lucide-react";
+import { Sun, Moon, Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
@@ -64,18 +65,17 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           
           {/* Logo / Brand */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className={cn(
-              "relative flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden shadow-md transition-colors duration-300",
-              useWhiteText
-                ? "bg-white text-primary shadow-white/10"
-                : "bg-primary text-primary-foreground shadow-primary/20"
-            )}>
-              <Sparkles className="w-5 h-5 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+          <Link href="/" className="flex items-center gap-1 group">
+            <Image
+              src="/assets/logo/logo.png"
+              alt="CleanChase Logo"
+              width={160}
+              height={40}
+              priority
+              className="h-10 w-auto object-contain transition-all duration-300 -mr-1"
+            />
             <span className={cn(
-              "text-xl font-bold tracking-tight transition-colors duration-300",
+              "text-2xl font-bold tracking-tight transition-colors duration-300",
               useWhiteText
                 ? "text-white"
                 : "bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent"
@@ -216,11 +216,16 @@ export function Navbar() {
 
               <SheetContent side="right" className="w-[280px] sm:w-[320px] p-6 flex flex-col gap-6">
                 <SheetHeader className="p-0 border-b border-border/40 pb-4">
-                  <SheetTitle className="flex items-center gap-2">
-                    <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-                      <Sparkles className="w-4 h-4" />
-                    </div>
-                    <span className="text-lg font-bold tracking-tight">
+                  <SheetTitle className="flex items-center gap-1">
+                    <Image
+                      src="/assets/logo/logo.png"
+                      alt="CleanChase Logo"
+                      width={120}
+                      height={30}
+                      priority
+                      className="h-7.5 w-auto object-contain -mr-1"
+                    />
+                    <span className="text-xl font-bold tracking-tight">
                       Clean<span className="text-primary font-extrabold">Chase</span>
                     </span>
                   </SheetTitle>
