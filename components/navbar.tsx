@@ -98,7 +98,7 @@ export function Navbar() {
                   className={cn(
                     "relative py-2 text-sm font-semibold transition-colors duration-200 group",
                     isActive
-                      ? (useWhiteText ? "text-white font-extrabold" : "text-primary dark:text-primary")
+                      ? (useWhiteText ? "text-white font-extrabold hover:text-white/80" : "text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80")
                       : (useWhiteText
                           ? "text-white/90 hover:text-white dark:text-white/90 dark:hover:text-white"
                           : "text-black/80 hover:text-primary dark:text-white/80 dark:hover:text-primary")
