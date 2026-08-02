@@ -12,7 +12,8 @@ import {
   FileText, 
   GraduationCap, 
   Star, 
-  Sparkles 
+  Sparkles,
+  FileCheck
 } from "lucide-react";
 
 interface FeatureItem {
@@ -61,6 +62,11 @@ const features: FeatureItem[] = [
     id: 8,
     icon: <GraduationCap className="w-5 h-5" />,
     title: "Ladders & Step Ladders"
+  },
+  {
+    id: 9,
+    icon: <FileCheck className="w-5 h-5" />,
+    title: "Method of Statement"
   }
 ];
 
@@ -148,7 +154,7 @@ export function WhyChooseUs() {
             We provide the following upon request
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 relative z-10">
             {features.map((feature) => (
               <div
                 key={feature.id}

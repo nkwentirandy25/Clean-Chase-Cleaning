@@ -26,16 +26,16 @@ const contactInfo = [
     id: "phone",
     icon: <Phone className="w-6 h-6 text-primary" />,
     title: "Call Us Anytime",
-    value: "+44 (0) 121 234 5678",
+    value: "+447348140317",
     description: "Speak directly with our expert team for bookings or queries.",
     actionText: "Call now",
-    href: "tel:+441212345678"
+    href: "tel:+447348140317"
   },
   {
     id: "email",
     icon: <Mail className="w-6 h-6 text-emerald-500" />,
     title: "Email Support",
-    value: "info@clecleanachasecleaning.co.uk",
+    value: "info@cleanchasecleaning.co.uk",
     description: "Send us your questions or documents and we will reply within 24 hours.",
     actionText: "Email us",
     href: "mailto:info@cleanchasecleaning.co.uk"

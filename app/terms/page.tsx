@@ -177,7 +177,7 @@ export default function TermsPage() {
                 </p>
               </div>
               <a
-                href="mailto:info@clecleanachasecleaning.co.uk"
+                href="mailto:info@cleanchasecleaning.co.uk"
                 className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/95 text-xs sm:text-sm font-bold shadow-md transition-all active:scale-98 shrink-0"
               >
                 Contact Operations

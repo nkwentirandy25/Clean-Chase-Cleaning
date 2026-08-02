@@ -33,7 +33,7 @@ const reviews: ReviewItem[] = [
   {
     id: 3,
     name: "David Miller",
-    role: "Office Manager, TechFlow Ltd",
+    role: "Office Manager",
     location: "City Centre, Birmingham",
     rating: 5,
     content: "We contracted them for daily office cleaning. Our desks, meeting rooms, and kitchen are immaculate every morning. Outstanding reliability and attention to detail!"

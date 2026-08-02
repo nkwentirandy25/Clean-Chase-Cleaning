@@ -110,6 +110,12 @@ const services: ServiceItem[] = [
     description: "Bring back that 'brand new' home feel with our extensive deep residential cleaning. We thoroughly clean and sanitize kitchens, bathrooms, living areas, skirting boards, door frames, light switches, and inside windows, reaching all those easily missed corners to leave your home perfectly fresh and healthy.",
     image: "/assets/services/deep_home_cleaning.png",
   },
+  {
+    id: 17,
+    name: "Event Cleaning",
+    description: "Ensure your venue is immaculate before, during, and after your special occasion. We handle comprehensive prep, active guest-area maintenance, and rapid post-event teardown sanitation so you can focus entirely on hosting.",
+    image: "/assets/services/event_cleaning.png",
+  },
 ];
 
 const containerVariants = {
@@ -220,6 +226,8 @@ export default function ServicesPage() {
                             ? "/quote/transport-fleet-cleaning" 
                             : service.id === 16
                             ? "/quote/deep-home-cleaning"
+                            : service.id === 17
+                            ? "/quote/event-cleaning"
                             : service.id === 5 
                               ? "/quote/end-of-tenancy-house-cleaning"
                               : service.id === 3
