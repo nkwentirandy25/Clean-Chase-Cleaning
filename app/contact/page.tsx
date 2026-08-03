@@ -80,6 +80,7 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -92,13 +93,26 @@ export default function ContactPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate API Submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send email. Please try again.");
+      }
+
       setIsSubmitted(true);
       setFormData({
         name: "",
@@ -107,7 +121,11 @@ export default function ContactPage() {
         service: "",
         message: ""
       });
-    }, 1500);
+    } catch (err: any) {
+      setSubmitError(err?.message || "Something went wrong. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -329,6 +347,12 @@ export default function ContactPage() {
                         className="w-full p-4 rounded-xl border border-border bg-background text-sm font-medium text-foreground placeholder:text-muted-foreground/60 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                       />
                     </div>
+
+                    {submitError && (
+                      <div className="text-red-500 font-medium text-sm bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
+                        {submitError}
+                      </div>
+                    )}
 
                     {/* Submit Button */}
                     <div className="pt-2">
