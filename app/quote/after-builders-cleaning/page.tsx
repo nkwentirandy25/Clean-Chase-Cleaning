@@ -28,6 +28,7 @@ export default function AfterBuildersQuote() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCompletionOpen, setIsCompletionOpen] = useState(false);
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Scroll to top on step change/success
   useEffect(() => {
@@ -118,14 +119,36 @@ export default function AfterBuildersQuote() {
     setErrors({});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep(2)) {
       setIsSubmitting(true);
-      setTimeout(() => {
-        setIsSubmitting(false);
+      setSubmitError(null);
+
+      try {
+        const response = await fetch("/api/quote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            serviceName: "After Builders Cleaning",
+            ...formData,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to submit quote request. Please try again.");
+        }
+
         setIsSubmitted(true);
-      }, 1500);
+      } catch (err: any) {
+        setSubmitError(err.message || "Failed to submit request. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -599,6 +622,12 @@ export default function AfterBuildersQuote() {
                   )}
                 </div>
               </div>
+
+              {submitError && (
+                <div className="pt-4 text-red-500 font-medium text-sm bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
+                  {submitError}
+                </div>
+              )}
 
               {/* Navigation buttons */}
               <div className="pt-6 mt-8 border-t border-border/60 flex items-center justify-between">

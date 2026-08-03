@@ -36,6 +36,7 @@ export default function StudentAccommodationQuote() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Scroll to top on step change
   useEffect(() => {
@@ -152,7 +153,7 @@ export default function StudentAccommodationQuote() {
     setErrors({});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     if (!validateStep(2)) {
       // scroll to first error
@@ -168,12 +169,32 @@ export default function StudentAccommodationQuote() {
     }
 
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate API Submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          serviceName: "Student Accommodation Cleaning",
+          ...formData,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit quote request. Please try again.");
+      }
+
       setIsSubmitted(true);
-    }, 1500);
+    } catch (err: any) {
+      setSubmitError(err.message || "Failed to submit request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -609,6 +630,12 @@ export default function StudentAccommodationQuote() {
                           <p className="text-xs font-semibold text-destructive mt-1">{errors.contactMethod}</p>
                         )}
                       </div>
+
+                      {submitError && (
+                        <div className="pt-4 text-red-500 font-medium text-sm bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
+                          {submitError}
+                        </div>
+                      )}
 
                       {/* Form Navigation buttons */}
                       <div className="pt-6 mt-8 border-t border-border/60 flex items-center justify-between">

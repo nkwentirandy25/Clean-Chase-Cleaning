@@ -53,6 +53,7 @@ export default function EventCleaningQuotePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Scroll to top on step change
   useEffect(() => {
@@ -112,7 +113,7 @@ export default function EventCleaningQuotePage() {
     setErrors({});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
@@ -141,13 +142,34 @@ export default function EventCleaningQuotePage() {
 
     setErrors({});
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate API Submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          serviceName: "Event Cleaning",
+          ...formData,
+          ...phases,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit quote request. Please try again.");
+      }
+
       setIsSubmitted(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 1500);
+    } catch (err: any) {
+      setSubmitError(err.message || "Failed to submit request. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
@@ -567,6 +589,12 @@ export default function EventCleaningQuotePage() {
                   </div>
 
                   {/* Form Footer Separator & Navigation */}
+                  {submitError && (
+                    <div className="pt-4 text-red-500 font-medium text-sm bg-red-500/10 border border-red-500/20 p-3 rounded-xl text-left">
+                      {submitError}
+                    </div>
+                  )}
+
                   <div className="pt-6 mt-8 border-t border-border/60 flex items-center justify-between">
                     <button
                       type="button"

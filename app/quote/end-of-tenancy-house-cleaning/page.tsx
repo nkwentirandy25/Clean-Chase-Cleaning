@@ -14,7 +14,8 @@ import {
   Minus,
   Plus,
   ChevronDown,
-  CalendarIcon
+  CalendarIcon,
+  Loader2
 } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
@@ -25,6 +26,8 @@ export default function EndOfTenancyQuote() {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Scroll to top on step change
   useEffect(() => {
@@ -106,11 +109,37 @@ export default function EndOfTenancyQuote() {
     setErrors({});
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep(3)) {
-      setStep(4); // success state
-      setErrors({});
+      setIsSubmitting(true);
+      setSubmitError(null);
+
+      try {
+        const response = await fetch("/api/quote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            serviceName: "End of Tenancy House Cleaning",
+            ...formData,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to submit quote request. Please try again.");
+        }
+
+        setStep(4); // success state
+        setErrors({});
+      } catch (err: any) {
+        setSubmitError(err.message || "Failed to submit request. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -780,6 +809,12 @@ export default function EndOfTenancyQuote() {
                           )}
                         </div>
 
+                        {submitError && (
+                          <div className="pt-4 text-red-500 font-medium text-sm bg-red-500/10 border border-red-500/20 p-3 rounded-xl">
+                            {submitError}
+                          </div>
+                        )}
+
                         {/* Navigation buttons */}
                         <div className="flex justify-between items-center pt-6 border-t border-border mt-6">
                           <button
@@ -793,10 +828,20 @@ export default function EndOfTenancyQuote() {
                           
                           <button
                             type="submit"
-                            className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs sm:text-sm tracking-wide shadow-md active:scale-97 hover:scale-102 flex items-center gap-1.5 transition-all cursor-pointer"
+                            disabled={isSubmitting}
+                            className="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs sm:text-sm tracking-wide shadow-md active:scale-97 hover:scale-102 flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-75 disabled:pointer-events-none"
                           >
-                            <span>Submit Request</span>
-                            <CheckCircle2 className="w-4 h-4" />
+                            {isSubmitting ? (
+                              <>
+                                <span>Submitting...</span>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              </>
+                            ) : (
+                              <>
+                                <span>Submit Request</span>
+                                <CheckCircle2 className="w-4 h-4" />
+                              </>
+                            )}
                           </button>
                         </div>
                       </motion.div>
