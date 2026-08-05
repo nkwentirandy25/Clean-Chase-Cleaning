@@ -64,7 +64,7 @@ const servicesList = [
   "After Builders Cleaning",
   "Industrial & Warehouse Cleaning",
   "Transport & Fleet Cleaning",
-  "Carpet & Upholstery Cleaning",
+  "Carpet, Upholstery and Floor Cleaning",
   "Agricultural Cleaning",
   "Store Cleaning",
   "Other / Custom Package"

@@ -49,7 +49,7 @@ export default function CarpetCleaningQuote() {
     window.scrollTo(0, 0);
   }, [step, isSubmitted]);
 
-  // Carpet & Upholstery Cleaning Form State
+  // Carpet, Upholstery and Floor Cleaning Form State
   const [formData, setFormData] = useState({
     // Step 1: Cleaning Details
     bedroomCarpets: 0,
@@ -195,7 +195,7 @@ export default function CarpetCleaningQuote() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          serviceName: "Carpet & Upholstery Cleaning",
+          serviceName: "Carpet, Upholstery and Floor Cleaning",
           ...formData,
         }),
       });
@@ -267,7 +267,7 @@ export default function CarpetCleaningQuote() {
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary font-semibold text-xs tracking-wider uppercase mb-4"
           >
             <Sparkle className="w-3.5 h-3.5" />
-            <span>Carpet & Upholstery Care</span>
+            <span>Carpet, Upholstery and Floor Care</span>
           </motion.div>
 
           <motion.h1
@@ -780,7 +780,7 @@ export default function CarpetCleaningQuote() {
                 </h2>
 
                 <p className="text-muted-foreground max-w-md text-sm sm:text-base leading-relaxed mb-8 relative z-10">
-                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for Carpet & Upholstery Cleaning has been received. Our team will review the details and reach out with a custom quote within 24 hours.
+                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for Carpet, Upholstery and Floor Cleaning has been received. Our team will review the details and reach out with a custom quote within 24 hours.
                 </p>
 
                 {/* Enquiries Summary box */}

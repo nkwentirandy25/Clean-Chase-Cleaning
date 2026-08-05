@@ -88,8 +88,8 @@ const services: ServiceItem[] = [
   },
   {
     id: 13,
-    name: "Carpet & Upholstery Cleaning",
-    description: "Restore the vibrant color and texture of your carpets and fabric furniture. Using advanced hot-water extraction, steam sanitization, and eco-friendly solutions, we extract deep-seated dirt, dust mites, pet dander, and tough stains from carpets, office chairs, and sofas.",
+    name: "Carpet, Upholstery and Floor Cleaning",
+    description: "Restore the vibrant color, cleanliness, and texture of your carpets, hard floors, and fabric furniture. Using advanced hot-water extraction, steam sanitization, and eco-friendly solutions, we extract deep-seated dirt, dust mites, and tough stains from carpets, office chairs, and sofas. We also provide specialist commercial carpet and floor cleaning, including deep scrubbing and polish care for business premises.",
     image: "/assets/services/carpet_upholstery_cleaning.png",
   },
   {

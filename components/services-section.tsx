@@ -149,13 +149,13 @@ const coreServices: ServiceItem[] = [
   },
   {
     id: 13,
-    name: "Carpet & Upholstery Cleaning",
-    description: "Restore the vibrant color and texture of your carpets and fabric furniture. We extract deep-seated dirt and treat tough stains.",
+    name: "Carpet, Upholstery and Floor Cleaning",
+    description: "Restore the vibrant color, cleanliness, and texture of your carpets, hard floors, and fabric furniture. We also offer commercial carpet and floor cleaning.",
     image: "/assets/services/carpet_upholstery_cleaning.png",
     points: [
       "Hot-water deep extraction",
-      "Dust mite & dander removal",
-      "Tough stain treatment"
+      "Hard floor scrubbing & polish",
+      "Commercial carpet & floor care"
     ]
   },
   {

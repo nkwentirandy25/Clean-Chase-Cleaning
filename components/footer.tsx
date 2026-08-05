@@ -73,7 +73,7 @@ export function Footer() {
     { name: "Office Cleaning", href: "/services" },
     { name: "Business Site Cleaning", href: "/services" },
     { name: "End of Tenancy Cleaning", href: "/services" },
-    { name: "Carpet & Upholstery Cleaning", href: "/services" },
+    { name: "Carpet, Upholstery and Floor Cleaning", href: "/services" },
   ];
 
   const company = [
