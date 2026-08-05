@@ -25,6 +25,7 @@ interface CleaningPhases {
   preCleaning: boolean;
   duringEvent: boolean;
   postCleaning: boolean;
+  wasteManagement: boolean;
 }
 
 export default function EventCleaningQuotePage() {
@@ -35,6 +36,7 @@ export default function EventCleaningQuotePage() {
     preCleaning: false,
     duringEvent: false,
     postCleaning: false,
+    wasteManagement: false,
   });
 
   const [formData, setFormData] = useState({
@@ -188,6 +190,7 @@ export default function EventCleaningQuotePage() {
       preCleaning: false,
       duringEvent: false,
       postCleaning: false,
+      wasteManagement: false,
     });
     setErrors({});
     setStep(1);
@@ -269,7 +272,7 @@ export default function EventCleaningQuotePage() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
                     {/* Pre-cleaning card */}
                     <button
                       type="button"
@@ -347,6 +350,33 @@ export default function EventCleaningQuotePage() {
                         </div>
                         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                           Complete venue recovery. Breakdown deep cleaning, full waste removal, floor scrubbing, and returning venue space to its original state.
+                        </p>
+                      </div>
+                    </button>
+
+                    {/* Waste Management card */}
+                    <button
+                      type="button"
+                      onClick={() => handlePhaseToggle("wasteManagement")}
+                      className={`p-6 rounded-2xl border text-left transition-all duration-200 cursor-pointer shadow-sm relative group flex flex-col justify-between min-h-[160px] ${
+                        phases.wasteManagement
+                          ? "bg-primary/5 border-primary ring-2 ring-primary/10"
+                          : "bg-card border-border hover:bg-muted hover:border-border/80"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="font-extrabold text-base sm:text-lg text-foreground">Waste Management</span>
+                          <div className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${
+                            phases.wasteManagement
+                              ? "bg-primary border-primary text-primary-foreground"
+                              : "border-border bg-background group-hover:border-muted-foreground"
+                          }`}>
+                            {phases.wasteManagement && <Check className="w-4 h-4 stroke-[3]" />}
+                          </div>
+                        </div>
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                          Dedicated rubbish disposal and recycling. Bin placement, waste sorting, and eco-friendly disposal solutions for events of any scale.
                         </p>
                       </div>
                     </button>
@@ -675,6 +705,7 @@ export default function EventCleaningQuotePage() {
                         phases.preCleaning && "Pre-cleaning",
                         phases.duringEvent && "During Event Cleaning",
                         phases.postCleaning && "Post-cleaning",
+                        phases.wasteManagement && "Waste Management",
                       ]
                         .filter(Boolean)
                         .join(", ")}

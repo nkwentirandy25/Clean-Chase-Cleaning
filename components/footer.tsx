@@ -42,6 +42,25 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+const Youtube = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+    <path d="m10 15 5-3-5-3z" />
+  </svg>
+);
+
+const Tiktok = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+const Snapchat = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.15 3.86 1.7 4.7a1 1 0 0 1 .3.66c0 1.25-1.7 1.83-2 1.94a.5.5 0 0 0-.3.61c.42 1.4 3 2.09 5.3 2.09a7.6 7.6 0 0 0 2-.26 7.6 7.6 0 0 0 2 .26c2.3 0 4.88-.69 5.3-2.09a.5.5 0 0 0-.3-.61c-.3-.11-2-.69-2-1.94a1 1 0 0 1 .3-.66c.55-.84 1.7-2.3 1.7-4.7A7 7 0 0 0 12 2z" />
+  </svg>
+);
+
 export function Footer() {
   const pathname = usePathname();
   const validRoutes = ["/", "/about", "/contact", "/privacy", "/quote", "/services", "/terms"];
@@ -87,11 +106,15 @@ export function Footer() {
             <p className="text-base text-muted-foreground leading-relaxed">
               We deliver elite residential and commercial cleaning plans. Fully vetted personnel, environmental certified, and absolute satisfaction guaranteed.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               {[
                 { icon: Facebook, href: "#" },
                 { icon: Instagram, href: "#" },
                 { icon: Twitter, href: "#" },
+                { icon: Youtube, href: "#" },
+                { icon: Tiktok, href: "#" },
+                { icon: Snapchat, href: "#" },
+                { icon: Linkedin, href: "#" },
               ].map((social, idx) => {
                 const Icon = social.icon;
                 return (
