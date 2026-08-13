@@ -14,6 +14,7 @@ const CUSTOMER_FIELDS = new Set([
   "specialRequests",
   "siteVisitDate",
   "companyName",
+  "gardenImage",
 ]);
 
 // Helper to convert camelCase to Title Case
@@ -63,6 +64,7 @@ export async function POST(request: Request) {
     const comments = allDetails.comments || allDetails.additionalInfo || allDetails.specialRequests || "";
     const siteVisitDate = allDetails.siteVisitDate || "";
     const companyName = allDetails.companyName || "";
+    const gardenImage = allDetails.gardenImage || "";
 
     if (!firstName || !surname || !email || !phone) {
       return NextResponse.json(
@@ -350,6 +352,17 @@ export async function POST(request: Request) {
               `
                   : ""
               }
+
+              ${
+                gardenImage
+                  ? `
+              <div class="section-title">Uploaded Garden Photo</div>
+              <div style="margin-bottom: 28px;">
+                <img src="cid:gardenPhoto" style="max-width: 100%; height: auto; border-radius: 12px; border: 1px solid #e2e8f0; display: block;" alt="Uploaded Garden Photo" />
+              </div>
+              `
+                  : ""
+              }
             </div>
             <div class="footer">
               <p>This request was sent automatically from the Clean Chase Cleaning quote portal.</p>
@@ -361,14 +374,38 @@ export async function POST(request: Request) {
       </html>
     `;
 
+    // Process attachment
+    const attachments = [];
+    if (gardenImage && typeof gardenImage === "string" && gardenImage.startsWith("data:")) {
+      const commaIndex = gardenImage.indexOf(",");
+      if (commaIndex !== -1) {
+        const base64Data = gardenImage.substring(commaIndex + 1);
+        let contentType = "image/png";
+        const mimeMatch = gardenImage.substring(0, commaIndex).match(/data:([^;]+);base64/);
+        if (mimeMatch) {
+          contentType = mimeMatch[1];
+        }
+        const ext = contentType.split("/")[1] || "png";
+        attachments.push({
+          filename: `garden-photo.${ext}`,
+          content: base64Data,
+          encoding: "base64" as const,
+          cid: "gardenPhoto",
+        });
+      }
+    }
+
     // Send Mail
     await transporter.sendMail({
       from: `"${firstName} ${surname} (Quote Request)" <${smtpUser}>`,
       to: receiverEmail,
       replyTo: email,
       subject: `New Quote Request: ${serviceName} - from ${firstName} ${surname}`,
-      text: `New Quote Request for ${serviceName}\n\nName: ${firstName} ${surname}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${addressLine1}, ${postcode}`,
+      text: `New Quote Request for ${serviceName}\n\nName: ${firstName} ${surname}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${addressLine1}, ${postcode}${
+        gardenImage ? "\n\nNote: A garden photo has been attached to this email." : ""
+      }`,
       html: htmlTemplate,
+      attachments: attachments.length > 0 ? attachments : undefined,
     });
 
     return NextResponse.json({ success: true });

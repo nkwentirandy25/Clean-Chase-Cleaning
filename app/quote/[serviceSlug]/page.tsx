@@ -11,7 +11,10 @@ import {
   Loader2,
   Sparkles,
   ShieldCheck,
-  CalendarIcon
+  CalendarIcon,
+  Upload,
+  Image as ImageIcon,
+  X
 } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
@@ -107,6 +110,78 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  // Garden photo upload states
+  const [gardenImage, setGardenImage] = useState<string | null>(null);
+  const [imageFileName, setImageFileName] = useState<string>("");
+  const [imageFileSize, setImageFileSize] = useState<string>("");
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
+
+  // File upload handlers
+  const handleImageFile = (file: File) => {
+    setImageError(null);
+
+    // Validate type (must be image/*)
+    if (!file.type.startsWith("image/")) {
+      setImageError("Please upload an image file (PNG, JPG, WEBP).");
+      return;
+    }
+
+    // Validate size (5MB = 5 * 1024 * 1024 bytes)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setImageError("File size must be less than 5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setGardenImage(event.target.result as string);
+        setImageFileName(file.name);
+        
+        // Format size
+        const sizeInMb = (file.size / (1024 * 1024)).toFixed(2);
+        setImageFileSize(`${sizeInMb} MB`);
+      }
+    };
+    reader.onerror = () => {
+      setImageError("Failed to read file. Please try again.");
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      handleImageFile(e.target.files[0]);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleImageFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const removeImage = () => {
+    setGardenImage(null);
+    setImageFileName("");
+    setImageFileSize("");
+    setImageError(null);
+  };
+
   // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -190,6 +265,7 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
         body: JSON.stringify({
           serviceName: serviceInfo.name,
           ...formData,
+          gardenImage: gardenImage || undefined,
         }),
       });
 
@@ -220,6 +296,10 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
       siteVisitDate: "",
       contactMethod: "",
     });
+    setGardenImage(null);
+    setImageFileName("");
+    setImageFileSize("");
+    setImageError(null);
     setErrors({});
     setIsSubmitted(false);
   };
@@ -387,6 +467,84 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                     <p className="text-xs font-semibold text-destructive mt-1">{errors.postcode}</p>
                   )}
                 </div>
+
+                {/* Garden Image Upload (Only for Garden Maintenance) */}
+                {serviceSlug === "garden-maintenance" && (
+                  <div className="space-y-3 pt-2">
+                    <label className="block font-bold text-foreground text-sm sm:text-base">
+                      Upload Garden Photo <span className="text-muted-foreground font-normal text-xs sm:text-sm">(Optional)</span>
+                    </label>
+                    <p className="text-muted-foreground text-xs leading-normal">
+                      Providing a photo of your garden helps us give you a more accurate quote.
+                    </p>
+
+                    {!gardenImage ? (
+                      <div
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={`border-2 border-dashed rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center transition-all duration-200 cursor-pointer ${
+                          isDragOver
+                            ? "border-primary bg-primary/5 scale-[1.01]"
+                            : "border-border/80 bg-card hover:border-primary/50 hover:bg-muted/30"
+                        }`}
+                        onClick={() => document.getElementById("garden-photo-upload")?.click()}
+                      >
+                        <input
+                          type="file"
+                          id="garden-photo-upload"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleFileChange}
+                        />
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-3 text-primary">
+                          <Upload className="w-6 h-6" />
+                        </div>
+                        <span className="font-bold text-foreground text-sm text-center">
+                          Drag and drop your image here, or <span className="text-primary hover:underline">browse</span>
+                        </span>
+                        <span className="text-muted-foreground text-xs mt-1.5 text-center">
+                          Supports JPG, PNG, WEBP. Max size 5MB.
+                        </span>
+                      </div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="flex flex-col sm:flex-row items-center gap-4 p-4 bg-secondary/30 rounded-2xl border border-border/80"
+                      >
+                        <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-border bg-muted flex-shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={gardenImage}
+                            alt="Garden Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0 text-center sm:text-left">
+                          <p className="font-bold text-foreground text-sm truncate">
+                            {imageFileName}
+                          </p>
+                          <p className="text-muted-foreground text-xs mt-0.5">
+                            {imageFileSize}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={removeImage}
+                          className="p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-full transition-colors cursor-pointer flex items-center justify-center"
+                          title="Remove image"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </motion.div>
+                    )}
+
+                    {imageError && (
+                      <p className="text-xs font-semibold text-destructive mt-1">{imageError}</p>
+                    )}
+                  </div>
+                )}
 
                 {/* Comments / Message */}
                 <div className="space-y-2">
@@ -579,6 +737,23 @@ export default function ServiceQuotePage({ params }: { params: Promise<{ service
                         <span className="font-medium block text-muted-foreground mb-0.5">Scheduled Site Visit:</span>
                         <span className="text-foreground font-semibold block bg-secondary/20 p-2 rounded-lg border border-border/40">
                           {format(new Date(formData.siteVisitDate + "T00:00:00"), "PPP")}
+                        </span>
+                      </p>
+                    )}
+                    {serviceSlug === "garden-maintenance" && gardenImage && (
+                      <p className="pt-1.5 border-t border-border/60 mt-1.5 flex flex-col gap-1.5">
+                        <span className="font-medium block text-muted-foreground">Uploaded Garden Photo:</span>
+                        <span className="flex items-center gap-2 bg-secondary/20 p-2 rounded-lg border border-border/40">
+                          <span className="relative w-8 h-8 rounded overflow-hidden border border-border bg-muted flex-shrink-0">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={gardenImage}
+                              alt="Garden Thumbnail"
+                              className="w-full h-full object-cover"
+                            />
+                          </span>
+                          <span className="font-semibold text-foreground truncate text-xs">{imageFileName}</span>
+                          <span className="text-muted-foreground text-[10px] ml-auto">{imageFileSize}</span>
                         </span>
                       </p>
                     )}
