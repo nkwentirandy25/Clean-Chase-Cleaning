@@ -76,6 +76,11 @@ const serviceMap: Record<string, ServiceInfo> = {
     name: "Industrial & Warehouse Cleaning",
     description: "Heavy-duty cleaning programs for factories, assembly lines, distribution hubs, and warehouses. We clean grease spills, sweep and scrub large floor surfaces, wipe down heavy racking systems, and maintain clean safety walkways to keep your industrial operations safe and compliant.",
   },
+  "garden-maintenance": {
+    id: 12,
+    name: "Garden Maintenance",
+    description: "Keep your outdoor spaces immaculate, green, and beautifully manicured. Our professional services include general garden maintenance, garden clearance, lawn mowing, weeding, leaf clearance, and hedge trimming to enhance your property's curb appeal.",
+  },
 };
 
 export default function ServiceQuotePage({ params }: { params: Promise<{ serviceSlug: string }> }) {

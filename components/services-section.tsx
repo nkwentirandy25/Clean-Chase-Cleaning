@@ -138,13 +138,13 @@ const coreServices: ServiceItem[] = [
   },
   {
     id: 12,
-    name: "Transport & Fleet Cleaning",
-    description: "Keep your logistics assets representing your company professionally on the road. We provide pressure washing and interior sanitation.",
-    image: "/assets/services/transport_fleet_cleaning.png",
+    name: "Garden Maintenance",
+    description: "Keep your outdoor spaces immaculate, green, and beautifully manicured. We provide professional garden care and clean-up.",
+    image: "/assets/services/garden_maintenance.png",
     points: [
-      "Exterior pressure washing",
-      "Interior transport sanitizing",
-      "Chassis & cargo clean-up"
+      "General garden maintenance & clearance",
+      "Lawn mowing & weeding",
+      "Hedge trimming & leaf clearance"
     ]
   },
   {

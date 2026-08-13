@@ -82,9 +82,9 @@ const services: ServiceItem[] = [
   },
   {
     id: 12,
-    name: "Transport & Fleet Cleaning",
-    description: "Keep your logistics assets representing your company professionally on the road. We provide complete exterior high-pressure washing, chassis cleaning, and thorough interior sanitation of delivery vans, cargo trucks, and executive corporate fleets.",
-    image: "/assets/services/transport_fleet_cleaning.png",
+    name: "Garden Maintenance",
+    description: "Keep your outdoor spaces immaculate, green, and beautifully manicured. Our professional services include general garden maintenance, garden clearance, lawn mowing, weeding, leaf clearance, and hedge trimming to enhance your property's curb appeal.",
+    image: "/assets/services/garden_maintenance.png",
   },
   {
     id: 13,
@@ -223,7 +223,7 @@ export default function ServicesPage() {
                           : service.id === 11
                             ? "/quote/industrial-warehouse-cleaning"
                           : service.id === 12 
-                            ? "/quote/transport-fleet-cleaning" 
+                            ? "/quote/garden-maintenance" 
                             : service.id === 16
                             ? "/quote/deep-home-cleaning"
                             : service.id === 17

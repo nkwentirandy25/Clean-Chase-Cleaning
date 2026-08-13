@@ -63,7 +63,7 @@ const servicesList = [
   "School Cleaning",
   "After Builders Cleaning",
   "Industrial & Warehouse Cleaning",
-  "Transport & Fleet Cleaning",
+  "Garden Maintenance",
   "Carpet, Upholstery and Floor Cleaning",
   "Agricultural Cleaning",
   "Store Cleaning",

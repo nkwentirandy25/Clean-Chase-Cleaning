@@ -31,7 +31,7 @@ const services: ServiceItem[] = [
   { name: "School Cleaning", path: "/quote/school-cleaning" },
   { name: "After Builders Cleaning", path: "/quote/after-builders-cleaning" },
   { name: "Agricultural Cleaning", path: "/quote/agricultural-cleaning" },
-  { name: "Transport & Fleet Cleaning", path: "/quote/transport-fleet-cleaning" },
+  { name: "Garden Maintenance", path: "/quote/garden-maintenance" },
   { name: "End of Tenancy House Cleaning", path: "/quote/end-of-tenancy-house-cleaning" },
   { name: "Deep Home Cleaning", path: "/quote/deep-home-cleaning" },
   { name: "Carpet, Upholstery and Floor Cleaning", path: "/quote/carpet-cleaning" },
