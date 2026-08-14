@@ -116,6 +116,12 @@ const services: ServiceItem[] = [
     description: "Ensure your venue is immaculate before, during, and after your special occasion. We handle comprehensive prep, active guest-area maintenance, and rapid post-event teardown sanitation so you can focus entirely on hosting.",
     image: "/assets/services/event_cleaning.png",
   },
+  {
+    id: 18,
+    name: "Regular House Cleaning",
+    description: "Keep your home consistently neat, organized, and spotless with our weekly or fortnightly recurring residential cleaning service. We cover dust wiping, floor vacuuming, mopping, bathroom cleaning, and kitchen surface polishing to maintain a beautifully clean living space.",
+    image: "/assets/services/regular_house_cleaning.png",
+  },
 ];
 
 const containerVariants = {
@@ -226,6 +232,8 @@ export default function ServicesPage() {
                             ? "/quote/garden-maintenance" 
                             : service.id === 16
                             ? "/quote/deep-home-cleaning"
+                            : service.id === 18
+                            ? "/quote/regular-house-cleaning"
                             : service.id === 17
                             ? "/quote/event-cleaning"
                             : service.id === 5 

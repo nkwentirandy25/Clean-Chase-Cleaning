@@ -22,7 +22,7 @@ import { Calendar as ShadcnCalendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Link from "next/link";
 
-export default function DeepHomeCleaningQuote() {
+export default function RegularHouseCleaningQuote() {
   const [step, setStep] = useState(1);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSiteVisitOpen, setIsSiteVisitOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function DeepHomeCleaningQuote() {
     window.scrollTo(0, 0);
   }, [step]);
   
-  // Deep Home Cleaning Form State
+  // Regular House Cleaning Form State
   const [formData, setFormData] = useState({
     // Step 1: Property Details
     bedrooms: 2,
@@ -123,7 +123,7 @@ export default function DeepHomeCleaningQuote() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            serviceName: "Deep Home Cleaning",
+            serviceName: "Regular House Cleaning",
             ...formData,
           }),
         });
@@ -188,7 +188,7 @@ export default function DeepHomeCleaningQuote() {
             Get a Quote
           </h1>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Bring back that 'brand new' home feel with our extensive deep residential cleaning form.
+            Keep your home consistently neat, organized, and spotless with our weekly or fortnightly recurring residential cleaning service.
           </p>
         </div>
 
@@ -902,7 +902,7 @@ export default function DeepHomeCleaningQuote() {
 
                 <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-foreground mb-4">Request Submitted!</h2>
                 <p className="text-muted-foreground max-w-md text-sm sm:text-base leading-relaxed mb-8">
-                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for <span className="font-bold text-foreground">Deep Home Cleaning</span> has been received. Our team will analyze your requirements and get back to you with a custom quote within 24 hours.
+                  Thank you, <span className="font-bold text-foreground">{formData.firstName}</span>. Your request for <span className="font-bold text-foreground">Regular House Cleaning</span> has been received. Our team will analyze your requirements and get back to you with a custom quote within 24 hours.
                 </p>
 
                 {/* Submitted Summary box */}
