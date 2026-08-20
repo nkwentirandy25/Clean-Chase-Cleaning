@@ -108,19 +108,20 @@ export function Footer() {
             </p>
             <div className="flex flex-wrap items-center gap-3">
               {[
-                { icon: Facebook, href: "#" },
-                { icon: Instagram, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Youtube, href: "#" },
-                { icon: Tiktok, href: "#" },
+                { icon: Facebook, href: "https://www.facebook.com/share/1QLkFgm8js/?mibextid=wwXIfr" },
+                { icon: Instagram, href: "https://www.instagram.com/cleanchase_cleaning_ltd" },
+                { icon: Twitter, href: "https://x.com/iseebeautyy/" },
+                { icon: Youtube, href: "https://www.youtube.com/@Cleanchase-r9q" },
+                { icon: Tiktok, href: "https://www.tiktok.com/@cleanchase237" },
                 { icon: Snapchat, href: "#" },
-                { icon: Linkedin, href: "#" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/cleanchase-cleaning-ltd/" },
               ].map((social, idx) => {
                 const Icon = social.icon;
                 return (
                   <Link
                     key={idx}
                     href={social.href}
+                    target="_blank"
                     className="w-9 h-9 rounded-lg bg-background border border-border/60 text-muted-foreground hover:text-primary hover:border-primary/20 flex items-center justify-center transition-all hover:scale-115"
                   >
                     <Icon className="w-4.5 h-4.5" />
