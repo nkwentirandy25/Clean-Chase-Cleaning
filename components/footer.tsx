@@ -55,11 +55,6 @@ const Tiktok = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const Snapchat = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.15 3.86 1.7 4.7a1 1 0 0 1 .3.66c0 1.25-1.7 1.83-2 1.94a.5.5 0 0 0-.3.61c.42 1.4 3 2.09 5.3 2.09a7.6 7.6 0 0 0 2-.26 7.6 7.6 0 0 0 2 .26c2.3 0 4.88-.69 5.3-2.09a.5.5 0 0 0-.3-.61c-.3-.11-2-.69-2-1.94a1 1 0 0 1 .3-.66c.55-.84 1.7-2.3 1.7-4.7A7 7 0 0 0 12 2z" />
-  </svg>
-);
 
 export function Footer() {
   const pathname = usePathname();
@@ -106,28 +101,32 @@ export function Footer() {
             <p className="text-base text-muted-foreground leading-relaxed">
               We deliver elite residential and commercial cleaning plans. Fully vetted personnel, environmental certified, and absolute satisfaction guaranteed.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              {[
-                { icon: Facebook, href: "https://www.facebook.com/share/1QLkFgm8js/?mibextid=wwXIfr" },
-                { icon: Instagram, href: "https://www.instagram.com/cleanchase_cleaning_ltd" },
-                { icon: Twitter, href: "https://x.com/iseebeautyy/" },
-                { icon: Youtube, href: "https://www.youtube.com/@Cleanchase-r9q" },
-                { icon: Tiktok, href: "https://www.tiktok.com/@cleanchase237" },
-                { icon: Snapchat, href: "#" },
-                { icon: Linkedin, href: "https://www.linkedin.com/company/cleanchase-cleaning-ltd/" },
-              ].map((social, idx) => {
-                const Icon = social.icon;
-                return (
-                  <Link
-                    key={idx}
-                    href={social.href}
-                    target="_blank"
-                    className="w-9 h-9 rounded-lg bg-background border border-border/60 text-muted-foreground hover:text-primary hover:border-primary/20 flex items-center justify-center transition-all hover:scale-115"
-                  >
-                    <Icon className="w-4.5 h-4.5" />
-                  </Link>
-                );
-              })}
+            <div className="flex flex-wrap items-center justify-between gap-4 w-full">
+              <div className="flex flex-wrap items-center gap-3">
+                {[
+                  { icon: Facebook, href: "https://www.facebook.com/share/1QLkFgm8js/?mibextid=wwXIfr" },
+                  { icon: Instagram, href: "https://www.instagram.com/cleanchase_cleaning_ltd" },
+                  { icon: Twitter, href: "https://x.com/iseebeautyy/" },
+                  { icon: Youtube, href: "https://www.youtube.com/@Cleanchase-r9q" },
+                  { icon: Tiktok, href: "https://www.tiktok.com/@cleanchase237" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/company/cleanchase-cleaning-ltd/" },
+                ].map((social, idx) => {
+                  const Icon = social.icon;
+                  return (
+                    <Link
+                      key={idx}
+                      href={social.href}
+                      target="_blank"
+                      className="w-9 h-9 rounded-lg bg-background border border-border/60 text-muted-foreground hover:text-primary hover:border-primary/20 flex items-center justify-center transition-all hover:scale-115"
+                    >
+                      <Icon className="w-4.5 h-4.5" />
+                    </Link>
+                  );
+                })}
+              </div>
+              <span className="text-sm md:text-base text-muted-foreground font-medium">
+                Company Registration Number: 17401543
+              </span>
             </div>
           </div>
 
@@ -175,7 +174,7 @@ export function Footer() {
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-sm md:text-base text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-primary/80" />
-                +447348140317
+                +443301335407
               </span>
               <span className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-primary/80" />

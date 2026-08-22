@@ -26,10 +26,10 @@ const contactInfo = [
     id: "phone",
     icon: <Phone className="w-6 h-6 text-primary" />,
     title: "Call Us Anytime",
-    value: "+447348140317",
+    value: "+443301335407",
     description: "Speak directly with our expert team for bookings or queries.",
     actionText: "Call now",
-    href: "tel:+447348140317"
+    href: "tel:+443301335407"
   },
   {
     id: "email",
